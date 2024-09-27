@@ -11,9 +11,13 @@ import speaker from '../../assets/images/speaker.png';
 import video from '../../assets/images/video.png';
 import close from '../../assets/images/close.png';
 
+const serverUrl = 'wss://demo-app-llkt0pq2.livekit.cloud';
+const TOKEN =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mjc3NzAyMjgsImlzcyI6IkFQSWl0bUM1OHpSRUN6OSIsIm5hbWUiOiJkb3lsZSIsIm5iZiI6MTcyNzQyNDYyOCwic3ViIjoiZG95bGUiLCJ2aWRlbyI6eyJyb29tIjoiZG95bGVzcm9vbSIsInJvb21Kb2luIjp0cnVlfX0.4e18z_wstFVjD69ZGf9sPv-43jmxfeR9AU5B5nH0hr0';
+
 export const Voice = () => {
   const [token, setToken] = useState(null);
-  const [url, setUrl] = useState('wss://demo-app-llkt0pq2.livekit.cloud');
+  const [url, setUrl] = useState(serverUrl);
 
   return (
     <>
@@ -30,21 +34,20 @@ export const Voice = () => {
             Grand Pa
           </div>
           <div className="text-[#656464A8] opacity-[0.6] text-[21px] font-normal mt-[1px]">
-            connecting...
+            {token ? 'Connected' : 'Connecting...'}
           </div>
           <img
             src={avatar}
             className="rounded-full w-[172px] h-[172px] object-cover mt-[26px]"
           />
-
-          <div className="absolute bg-white w-full h-[94px] rounded-t-[9px] bottom-0">
-            <div className="flex gap-[24px] w-full h-full items-center justify-center">
-              <img className='cursor-pointer' src={video} />
-              <img className='cursor-pointer' src={audio} />
-              <img className='cursor-pointer' src={speaker} />
-              <img className='cursor-pointer' src={close} />
-            </div>
-          </div>
+          <LiveKitRoom
+            token={token}
+            serverUrl={url}
+            connectOptions={{ autoSubscribe: true }}
+            className="w-full"
+          >
+            <ActiveRoom setToken={setToken} />
+          </LiveKitRoom>
         </div>
 
         {/* Below is the logic to initiate call */}
@@ -52,9 +55,7 @@ export const Voice = () => {
         {/* {token === null ? (
           <button
             onClick={() => {
-              setToken(
-                'eyJhbGciOiJIUzI1NiJ9.eyJ2aWRlbyI6eyJyb29tIjoiaXd1NmJoIiwicm9vbUpvaW4iOnRydWUsImNhblB1Ymxpc2giOnRydWUsImNhblB1Ymxpc2hEYXRhIjp0cnVlLCJjYW5TdWJzY3JpYmUiOnRydWV9LCJpc3MiOiJBUElpdG1DNTh6UkVDejkiLCJleHAiOjE3MjczNjM2MDEsIm5iZiI6MCwic3ViIjoiaHVtYW5fdXNlciJ9.ciYAa6W0mL3WzRRPog0GAbUDmlAaWperEmcKK1iknIo'
-              );
+              setToken(TOKEN);
             }}
           >
             Connect
@@ -73,19 +74,40 @@ export const Voice = () => {
   );
 };
 
-const ActiveRoom = () => {
+const ActiveRoom = ({ setToken }) => {
   const { localParticipant, isMicrophoneEnabled } = useLocalParticipant();
+
   return (
     <>
       <RoomAudioRenderer />
-      <button
+      <div className="absolute bg-white w-full h-[94px] rounded-t-[9px] bottom-0">
+        <div className="flex gap-[24px] w-full h-full items-center justify-center">
+          {/* <img className="cursor-pointer" src={video} /> */}
+          <img
+            className="cursor-pointer"
+            src={isMicrophoneEnabled ? audio : speaker}
+            onClick={() => {
+              localParticipant?.setMicrophoneEnabled(!isMicrophoneEnabled);
+            }}
+          />
+          {/* <img className="cursor-pointer" src={speaker} /> */}
+          <img
+            className="cursor-pointer"
+            src={close}
+            onClick={() => {
+              setToken(null);
+            }}
+          />
+        </div>
+      </div>
+      {/* <button
         onClick={() => {
           localParticipant?.setMicrophoneEnabled(!isMicrophoneEnabled);
         }}
       >
         Toggle Microphone
       </button>
-      <div>Audio Enabled: {isMicrophoneEnabled ? 'Unmuted' : 'Muted'}</div>
+      <div>Audio Enabled: {isMicrophoneEnabled ? 'Unmuted' : 'Muted'}</div> */}
     </>
   );
 };
