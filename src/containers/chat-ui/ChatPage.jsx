@@ -94,6 +94,8 @@ function ChatPage() {
     }
   }, [personId]);
 
+  console.info(activePersona?.token)
+
   return (
     <LayoutContextProvider>
       <div className="flex flex-col h-screen w-screen">
@@ -249,11 +251,11 @@ const ActiveRoom = ({ ActivePersona, isVoice, setIsVoice, isVoiceAgent }) => {
   const navigate = useNavigate();
 
   // TODO: check if this works or not
-  useEffect(() => {
-    if (isVoice) {
-      localParticipant?.localParticipant?.setMicrophoneEnabled?.(true);
-    }
-  }, [isVoice]);
+  // useEffect(() => {
+  //   if (isVoice) {
+  //     localParticipant?.localParticipant?.setMicrophoneEnabled?.(true);
+  //   }
+  // }, [isVoice]);
 
   return (
     <>
@@ -321,6 +323,7 @@ const ActiveRoom = ({ ActivePersona, isVoice, setIsVoice, isVoiceAgent }) => {
         </main>
       )}
       <div className="relative flex flex-col h-[calc(100vh-74px)]">
+        <div className="w-full text-center capitalize">{voiceAssistant.state}</div>
         <div className=" flex-grow flex flex-col w-full bg-white overflow-y-auto">
           <div className="flex flex-col h-[calc(100%-74px)] overflow-auto p-3">
             {messages.map((message) => (
