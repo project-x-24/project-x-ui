@@ -15,5 +15,20 @@ export const getPokemon = async (name) => {
   }
 };
 
+export const getTodoList = async () => {
+  try {
+
+    const resp =  await apiCall({
+      method: 'get',
+      url: `todo`,
+      data: {}
+    })
+
+    return resp;
+  } catch (e) {
+    console.log(e)
+  }
+};
+
 
 
