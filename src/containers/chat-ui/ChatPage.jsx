@@ -65,8 +65,8 @@ import { AI_AGENT_LIST } from "../../constants/common";
 //   },
 // ];
 
-const serverUrl = "wss://prod-k9bgadix.livekit.cloud";
-const token = null;
+// const serverUrl = "wss://prod-k9bgadix.livekit.cloud";
+// const token = null;
 // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGl0eSI6IiIsIm5hbWUiOiJteSBuYW1lIiwidmlkZW8iOnsicm9vbUNyZWF0ZSI6ZmFsc2UsInJvb21MaXN0IjpmYWxzZSwicm9vbVJlY29yZCI6ZmFsc2UsInJvb21BZG1pbiI6ZmFsc2UsInJvb21Kb2luIjp0cnVlLCJyb29tIjoibXktcm9vbSIsImNhblB1Ymxpc2giOnRydWUsImNhblN1YnNjcmliZSI6dHJ1ZSwiY2FuUHVibGlzaERhdGEiOnRydWUsImNhblB1Ymxpc2hTb3VyY2VzIjpbXSwiY2FuVXBkYXRlT3duTWV0YWRhdGEiOmZhbHNlLCJpbmdyZXNzQWRtaW4iOmZhbHNlLCJoaWRkZW4iOmZhbHNlLCJyZWNvcmRlciI6ZmFsc2UsImFnZW50IjpmYWxzZX0sInNpcCI6eyJhZG1pbiI6ZmFsc2UsImNhbGwiOmZhbHNlfSwiYXR0cmlidXRlcyI6e30sIm1ldGFkYXRhIjoiIiwic2hhMjU2IjoiIiwic3ViIjoiaWRlbnRpdHkiLCJpc3MiOiJBUElMYURYRlo2amNmZ2QiLCJuYmYiOjE3Mjc0MzUxOTksImV4cCI6MTcyNzQ1Njc5OX0.z4F_IFABGISYZOeh0bcy7ilkIlIT2CltJilaBJwAI50";
 
 function ChatPage() {
@@ -75,23 +75,88 @@ function ChatPage() {
   const [messages, setMessages] = useState(dummyData);
   const [isEmojiOpen, setIsEmojiOpen] = useState(false);
 
+  const [isVoice, setIsVoice] = useState(false);
+  const [showPersonaDropdown, setShowPersonaDropdown] = useState(false);
+  const [activePersona, setActivePersona] = useState(AI_AGENT_LIST[0]);
+
   return (
     <LayoutContextProvider>
       <div className="flex flex-col h-screen w-screen">
         {/* Chat Header */}
+        <div className="flex items-center justify-between p-3 bg-white shadow-md">
+          <div className="flex">
+            <button className="text-xl">
+              <LeftArrowIcon />
+            </button>
+            <div
+              className="flex w-full last:relative items-center"
+              onClick={() => setShowPersonaDropdown((prev) => !prev)}
+            >
+              <img
+                alt=""
+                src={activePersona.imageSrc}
+                className="rounded-full w-10 h-10 ml-3 object-cover"
+              />
+              <div className="ml-3 flex-grow">
+                <p className="font-bold">{activePersona.persona}</p>
+              </div>
+              {showPersonaDropdown && (
+                <div className="flex flex-col absolute top-[60px] z-50 bg-white rounded-lg px-3 py-2 gap-2 min-w-[75vw]">
+                  {AI_AGENT_LIST?.map((item) => (
+                    <div
+                      key={item.persona}
+                      onClick={() => setActivePersona(item)}
+                      className="flex justify-between w-full"
+                    >
+                      <div className="flex justify-start gap-3 items-center">
+                        <img
+                          alt=""
+                          src={activePersona.imageSrc}
+                          className="rounded-full w-10 h-10 ml-3 object-cover"
+                        />
+                        <p>{item.persona}</p>
+                      </div>
+                      {activePersona.id === item.id && <TickIcon />}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+          <div className="right-buttons-container">
+            <div
+              className="w-full text-center cursor-pointer"
+              onClick={() => {
+                setIsVoice(!isVoice);
+              }}
+            >
+              {isVoice ? "VOICE" : "CHAT"}
+            </div>
+            <button className="text-xl">
+              <SearchIcon />
+            </button>
+            <button className="text-xl ml-[20px]">
+              <MenuIcon />
+            </button>
+          </div>
+        </div>
         <LiveKitRoom
-          token={token}
-          serverUrl={serverUrl}
+          token={activePersona.token}
+          serverUrl={activePersona.serverUrl}
           connectOptions={{ autoSubscribe: true }}
         >
-          <ActiveRoom />
+          <ActiveRoom
+            isVoice={isVoice}
+            setIsVoice={setIsVoice}
+            ActivePersona={activePersona}
+          />
         </LiveKitRoom>
       </div>
     </LayoutContextProvider>
   );
 }
 
-const ActiveRoom = () => {
+const ActiveRoom = ({ ActivePersona, isVoice, setIsVoice }) => {
   const voiceAssistant = useVoiceAssistant();
 
   const agentAudioTrack = voiceAssistant?.audioTrack;
@@ -108,10 +173,6 @@ const ActiveRoom = () => {
   const { chatMessages, send: sendChat } = useChat();
 
   console.log(messages);
-
-  const [isVoice, setIsVoice] = useState(false);
-  const [showPersonaDropdown, setShowPersonaDropdown] = useState(false);
-  const [activePersona, setActivePersona] = useState(AI_AGENT_LIST[0]);
 
   // temp
   const [isEmojiOpen, setIsEmojiOpen] = useState(false);
@@ -211,13 +272,13 @@ const ActiveRoom = () => {
         >
           <div className="h-full flex flex-col items-center relative">
             <div className="text-black text-[32px] font-normal mt-[140px]">
-              Grand Pa
+              {ActivePersona.persona}
             </div>
             <div className="text-[#656464A8] opacity-[0.6] text-[21px] font-normal mt-[1px]">
-              {token ? "Connected" : "Connecting..."}
+              {ActivePersona.token ? "Connected" : "Connecting..."}
             </div>
             <img
-              src={avatar}
+              src={ActivePersona.imageSrc}
               className="rounded-full w-[172px] h-[172px] object-cover mt-[26px]"
             />
 
@@ -246,64 +307,6 @@ const ActiveRoom = () => {
           </div>
         </main>
       )}
-
-      <div className="flex items-center justify-between p-3 bg-white shadow-md">
-        <div className="flex">
-          <button className="text-xl">
-            <LeftArrowIcon />
-          </button>
-          <div
-            className="flex w-full last:relative items-center"
-            onClick={() => setShowPersonaDropdown((prev) => !prev)}
-          >
-            <img
-              alt=""
-              src={activePersona.imageSrc}
-              className="rounded-full w-10 h-10 ml-3 object-cover"
-            />
-            <div className="ml-3 flex-grow">
-              <p className="font-bold">{activePersona.persona}</p>
-            </div>
-            {showPersonaDropdown && (
-              <div className="flex flex-col absolute top-[60px] z-50 bg-white rounded-lg px-3 py-2 gap-2 min-w-[75vw]">
-                {AI_AGENT_LIST?.map((item) => (
-                  <div
-                    key={item.persona}
-                    onClick={() => setActivePersona(item)}
-                    className="flex justify-between w-full"
-                  >
-                    <div className="flex justify-start gap-3 items-center">
-                      <img
-                        alt=""
-                        src={activePersona.imageSrc}
-                        className="rounded-full w-10 h-10 ml-3 object-cover"
-                      />
-                      <p>{item.persona}</p>
-                    </div>
-                    {activePersona.id === item.id && <TickIcon />}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-        <div className="right-buttons-container">
-          <div
-            className="w-full text-center cursor-pointer"
-            onClick={() => {
-              setIsVoice(!isVoice);
-            }}
-          >
-            {isVoice ? "VOICE" : "CHAT"}
-          </div>
-          <button className="text-xl">
-            <SearchIcon />
-          </button>
-          <button className="text-xl ml-[20px]">
-            <MenuIcon />
-          </button>
-        </div>
-      </div>
       <div className="relative flex flex-col h-[calc(100vh-74px)]">
         <div className=" flex-grow flex flex-col w-full bg-gray-100 overflow-y-auto">
           <div className="flex flex-col h-[calc(100%-74px)] overflow-auto p-3">

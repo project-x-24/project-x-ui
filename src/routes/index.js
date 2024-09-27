@@ -31,7 +31,7 @@ const Layout = () => {
           <Route path={RoutesPath.ABOUT} element={<AboutPerson />} />
           <Route path={RoutesPath.CHAT} element={<ChatPage />} />
           <Route path={RoutesPath.PROFILE} element={<AvatarProfile />} />
-          <Route path={RoutesPath.GAME} element={<HomePage />} />
+          <Route path={RoutesPath.GAME} element={<ChatPage />} />
         </Routes>
       </Router>
     </div>
