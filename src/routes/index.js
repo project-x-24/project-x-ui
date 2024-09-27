@@ -5,13 +5,14 @@ import {
   Routes,
 } from "react-router-dom";
 
-import RoutesPath from './RoutesPath';
-import HomePage from '../containers/home/Home';
-import { Voice } from '../containers/voice/Voice';
-import { TestChat } from '../containers/test-chat/TestChat';
-import AboutPerson from '../containers/about-person/AboutPerson';
-import ChatPage from '../containers/chat-ui/ChatPage';
-import AvatarProfile from '../containers/avatar-profile/AvatarProfile';
+import RoutesPath from "./RoutesPath";
+import HomePage from "../containers/home/Home";
+import { Voice } from "../containers/voice/Voice";
+import { TestChat } from "../containers/test-chat/TestChat";
+import AboutPerson from "../containers/about-person/AboutPerson";
+import ChatPage from "../containers/chat-ui/ChatPage";
+import AvatarProfile from "../containers/avatar-profile/AvatarProfile";
+import AddPerson from "../containers/add-person/AddPerson";
 
 const Layout = () => {
   return (
@@ -25,6 +26,8 @@ const Layout = () => {
             path={RoutesPath.ALL}
             element={<Navigate to={RoutesPath.HOME} replace />}
           />
+          <Route path={RoutesPath.ADD_PERSON} element={<AddPerson />} />
+
           <Route path={RoutesPath.ABOUT} element={<AboutPerson />} />
           <Route path={RoutesPath.CHAT} element={<ChatPage />} />
           <Route path={RoutesPath.PROFILE} element={<AvatarProfile />} />
