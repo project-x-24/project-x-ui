@@ -12,6 +12,9 @@ function ChatPage() {
 	const [isEmojiOpen, setIsEmojiOpen] = useState(false);
 
 	const handleSendMessage = () => {
+
+		setIsEmojiOpen(false)
+
 		if (!messageText) return;
 
 		const newMessage = {
@@ -57,10 +60,10 @@ function ChatPage() {
 
 			{/* Chat Input */}
 			<div className="flex flex-col w-screen p-3 items-center bg-white shadow-md">
-				<EmojiPicker open={isEmojiOpen} width={"100%"} previewConfig={{showPreview: false}}/>
+				<EmojiPicker open={isEmojiOpen} width={"100%"} previewConfig={{showPreview: false}} onEmojiClick={(e)=>setMessageText(prev => prev + e.emoji)} searchDisabled={true}/>
 				<div className="flex w-screen p-3 items-center">
 					<div className="flex w-full p-2 rounded-full bg-gray-100 outline-none">
-						<input type="text" placeholder="Message..." className="bg-gray-100 w-full pd-l-2" value={messageText} onChange={(e) => setMessageText(e.target.value)} />
+						<input type="text" placeholder="Message..." className="bg-gray-100 outline-none w-full pd-l-2" value={messageText} onChange={(e) => setMessageText(e.target.value)} />
 						<div className="right-buttons-container flex">
 							<button className="text-gray-500 mr-3">
 								<SmileIcon onClick={()=>setIsEmojiOpen(!isEmojiOpen)}/>
@@ -74,7 +77,7 @@ function ChatPage() {
 						</div>
 					</div>
 					<button className="text-xl text-blue-500" onClick={handleSendMessage}>
-						<SendIcon />
+						<SendIcon/>
 					</button>
 				</div>
 			</div>
