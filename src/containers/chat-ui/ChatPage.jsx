@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from "react";
 import {
   LeftArrowIcon,
   MenuIcon,
@@ -7,9 +7,10 @@ import {
   AttachmentIcon,
   CameraIcon,
   SendIcon,
-} from '../../assets';
-import EmojiPicker from 'emoji-picker-react';
-import { dummyData } from '../../constants/dummyData';
+  TickIcon,
+} from "../../assets";
+import EmojiPicker from "emoji-picker-react";
+import { dummyData } from "../../constants/dummyData";
 import {
   Chat,
   LayoutContextProvider,
@@ -20,62 +21,67 @@ import {
   useLocalParticipant,
   useTrackTranscription,
   useVoiceAssistant,
-} from '@livekit/components-react';
-import { LocalParticipant, Track } from 'livekit-client';
-import { segmentToChatMessage } from './chat-utils';
-import { ChatBubble } from './components/chat-bubble';
-import bg from '../../assets/images/call-bg.jpg';
-import avatar from '../../assets/images/avatar.jpg';
-import audio from '../../assets/images/audio.png';
-import speaker from '../../assets/images/speaker.png';
-import close from '../../assets/images/close.png';
+} from "@livekit/components-react";
+import { LocalParticipant, Track } from "livekit-client";
+import { segmentToChatMessage } from "./chat-utils";
+import { ChatBubble } from "./components/chat-bubble";
+import bg from "../../assets/images/call-bg.jpg";
+import avatar from "../../assets/images/avatar.jpg";
+import audio from "../../assets/images/audio.png";
+import speaker from "../../assets/images/speaker.png";
+import close from "../../assets/images/close.png";
+import { AI_AGENT_LIST } from "../../constants/common";
 
-const BLAH = [
-  {
-    message: 'Hello. Good afternoon, Bobby.',
-    name: 'Agent',
-    isSelf: false,
-    timestamp: 1727412176139,
-  },
-  {
-    message:
-      'How can I assist you today? How can I assist you today?How can I assist you today?How can I assist you today?How can I assist you today?',
-    name: 'Agent',
-    isSelf: false,
-    timestamp: 1727412178344,
-  },
-  {
-    name: 'my name',
-    message: 'how are you today',
-    timestamp: 1727412214643,
-    isSelf: true,
-  },
-  {
-    message: "I'm doing well, thank you for asking!",
-    name: 'Agent',
-    isSelf: false,
-    timestamp: 1727412217475,
-  },
-  {
-    message: 'How can I assist you today, Bobby?',
-    name: 'Agent',
-    isSelf: false,
-    timestamp: 1727412220094,
-  },
-];
+// const BLAH = [
+//   {
+//     message: 'Hello. Good afternoon, Bobby.',
+//     name: 'Agent',
+//     isSelf: false,
+//     timestamp: 1727412176139,
+//   },
+//   {
+//     message: 'How can I assist you today? How can I assist you today?How can I assist you today?How can I assist you today?How can I assist you today?',
+//     name: 'Agent',
+//     isSelf: false,
+//     timestamp: 1727412178344,
+//   },
+//   {
+//     name: 'my name',
+//     message: 'how are you today',
+//     timestamp: 1727412214643,
+//     isSelf: true,
+//   },
+//   {
+//     message: "I'm doing well, thank you for asking!",
+//     name: 'Agent',
+//     isSelf: false,
+//     timestamp: 1727412217475,
+//   },
+//   {
+//     message: 'How can I assist you today, Bobby?',
+//     name: 'Agent',
+//     isSelf: false,
+//     timestamp: 1727412220094,
+//   },
+// ];
 
-const serverUrl = 'wss://prod-k9bgadix.livekit.cloud';
-const token =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGl0eSI6IiIsIm5hbWUiOiJteSBuYW1lIiwidmlkZW8iOnsicm9vbUNyZWF0ZSI6ZmFsc2UsInJvb21MaXN0IjpmYWxzZSwicm9vbVJlY29yZCI6ZmFsc2UsInJvb21BZG1pbiI6ZmFsc2UsInJvb21Kb2luIjp0cnVlLCJyb29tIjoicHJvZC1yb29tIiwiY2FuUHVibGlzaCI6dHJ1ZSwiY2FuU3Vic2NyaWJlIjp0cnVlLCJjYW5QdWJsaXNoRGF0YSI6dHJ1ZSwiY2FuUHVibGlzaFNvdXJjZXMiOltdLCJjYW5VcGRhdGVPd25NZXRhZGF0YSI6ZmFsc2UsImluZ3Jlc3NBZG1pbiI6ZmFsc2UsImhpZGRlbiI6ZmFsc2UsInJlY29yZGVyIjpmYWxzZSwiYWdlbnQiOmZhbHNlfSwic2lwIjp7ImFkbWluIjpmYWxzZSwiY2FsbCI6ZmFsc2V9LCJhdHRyaWJ1dGVzIjp7fSwibWV0YWRhdGEiOiIiLCJzaGEyNTYiOiIiLCJzdWIiOiJpZGVudGl0eSIsImlzcyI6IkFQSUxhRFhGWjZqY2ZnZCIsIm5iZiI6MTcyNzQ0NjI4OCwiZXhwIjoxNzI3NDY3ODg4fQ.pleFKZYWmF5_WYIlQB-vhyiX0746X6L-nOtiMSgQGMM';
+const serverUrl = "wss://prod-k9bgadix.livekit.cloud";
+const token = null;
+// "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGl0eSI6IiIsIm5hbWUiOiJteSBuYW1lIiwidmlkZW8iOnsicm9vbUNyZWF0ZSI6ZmFsc2UsInJvb21MaXN0IjpmYWxzZSwicm9vbVJlY29yZCI6ZmFsc2UsInJvb21BZG1pbiI6ZmFsc2UsInJvb21Kb2luIjp0cnVlLCJyb29tIjoibXktcm9vbSIsImNhblB1Ymxpc2giOnRydWUsImNhblN1YnNjcmliZSI6dHJ1ZSwiY2FuUHVibGlzaERhdGEiOnRydWUsImNhblB1Ymxpc2hTb3VyY2VzIjpbXSwiY2FuVXBkYXRlT3duTWV0YWRhdGEiOmZhbHNlLCJpbmdyZXNzQWRtaW4iOmZhbHNlLCJoaWRkZW4iOmZhbHNlLCJyZWNvcmRlciI6ZmFsc2UsImFnZW50IjpmYWxzZX0sInNpcCI6eyJhZG1pbiI6ZmFsc2UsImNhbGwiOmZhbHNlfSwiYXR0cmlidXRlcyI6e30sIm1ldGFkYXRhIjoiIiwic2hhMjU2IjoiIiwic3ViIjoiaWRlbnRpdHkiLCJpc3MiOiJBUElMYURYRlo2amNmZ2QiLCJuYmYiOjE3Mjc0MzUxOTksImV4cCI6MTcyNzQ1Njc5OX0.z4F_IFABGISYZOeh0bcy7ilkIlIT2CltJilaBJwAI50";
 
 function ChatPage() {
+  const [replyingTo, setReplyingTo] = useState(null);
+  const [messageText, setMessageText] = useState("");
+  const [messages, setMessages] = useState(dummyData);
+  const [isEmojiOpen, setIsEmojiOpen] = useState(false);
+
   return (
     <LayoutContextProvider>
       <div className="flex flex-col h-screen w-screen">
         {/* Chat Header */}
         <LiveKitRoom
-          serverUrl={serverUrl}
           token={token}
+          serverUrl={serverUrl}
           connectOptions={{ autoSubscribe: true }}
         >
           <ActiveRoom />
@@ -104,16 +110,18 @@ const ActiveRoom = () => {
   console.log(messages);
 
   const [isVoice, setIsVoice] = useState(false);
+  const [showPersonaDropdown, setShowPersonaDropdown] = useState(false);
+  const [activePersona, setActivePersona] = useState(AI_AGENT_LIST[0]);
 
   // temp
   const [isEmojiOpen, setIsEmojiOpen] = useState(false);
-  const [messageText, setMessageText] = useState('');
+  const [messageText, setMessageText] = useState("");
   const [replyingTo, setReplyingTo] = useState(null);
 
   const handleSendMessage = () => {
     if (messageText.length > 0) {
       sendChat(messageText);
-      setMessageText('');
+      setMessageText("");
     }
     // setIsEmojiOpen(false);
     // if (!messageText) return;
@@ -162,11 +170,11 @@ const ActiveRoom = () => {
       let name = msg.from?.name;
       if (!name) {
         if (isAgent) {
-          name = 'Agent';
+          name = "Agent";
         } else if (isSelf) {
-          name = 'You';
+          name = "You";
         } else {
-          name = 'Unknown';
+          name = "Unknown";
         }
       }
       allMessages.push({
@@ -197,8 +205,8 @@ const ActiveRoom = () => {
           className="w-screen h-screen fixed inset-0 z-10"
           style={{
             backgroundImage: `url(${bg})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
           }}
         >
           <div className="h-full flex flex-col items-center relative">
@@ -206,12 +214,13 @@ const ActiveRoom = () => {
               Grand Pa
             </div>
             <div className="text-[#656464A8] opacity-[0.6] text-[21px] font-normal mt-[1px]">
-              {token ? 'Connected' : 'Connecting...'}
+              {token ? "Connected" : "Connecting..."}
             </div>
             <img
               src={avatar}
               className="rounded-full w-[172px] h-[172px] object-cover mt-[26px]"
             />
+
             <div className="absolute bg-white w-full h-[94px] rounded-t-[9px] bottom-0">
               <div className="flex gap-[24px] w-full h-full items-center justify-center">
                 {/* <img className="cursor-pointer" src={video} /> */}
@@ -237,37 +246,56 @@ const ActiveRoom = () => {
           </div>
         </main>
       )}
-      <div className="flex items-center p-3 bg-white shadow-md">
-        <button className="text-xl">
-          <LeftArrowIcon />
-        </button>
-        <img
-          src="https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg"
-          alt="Profile"
-          className="rounded-full w-10 h-10 ml-3 object-cover"
-        />
-        <div className="ml-3 flex-grow">
-          <p className="font-bold">GrandPa</p>
+
+      <div className="flex items-center justify-between p-3 bg-white shadow-md">
+        <div className="flex">
+          <button className="text-xl">
+            <LeftArrowIcon />
+          </button>
+          <div
+            className="flex w-full last:relative items-center"
+            onClick={() => setShowPersonaDropdown((prev) => !prev)}
+          >
+            <img
+              alt=""
+              src={activePersona.imageSrc}
+              className="rounded-full w-10 h-10 ml-3 object-cover"
+            />
+            <div className="ml-3 flex-grow">
+              <p className="font-bold">{activePersona.persona}</p>
+            </div>
+            {showPersonaDropdown && (
+              <div className="flex flex-col absolute top-[60px] z-50 bg-white rounded-lg px-3 py-2 gap-2 min-w-[75vw]">
+                {AI_AGENT_LIST?.map((item) => (
+                  <div
+                    key={item.persona}
+                    onClick={() => setActivePersona(item)}
+                    className="flex justify-between w-full"
+                  >
+                    <div className="flex justify-start gap-3 items-center">
+                      <img
+                        alt=""
+                        src={activePersona.imageSrc}
+                        className="rounded-full w-10 h-10 ml-3 object-cover"
+                      />
+                      <p>{item.persona}</p>
+                    </div>
+                    {activePersona.id === item.id && <TickIcon />}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
-        <div
-          className="w-full text-center cursor-pointer"
-          onClick={() => {
-            setIsVoice(!isVoice);
-          }}
-        >
-          {isVoice ? 'VOICE' : 'CHAT'}
-        </div>
-        {/* <button
-          onClick={() => {
-            localParticipant?.localParticipant?.setMicrophoneEnabled(
-              !isMicrophoneEnabled
-            );
-          }}
-        >
-          Toggle Microphone
-        </button> */}
-        {/* <div>Audio Enabled: {isMicrophoneEnabled ? 'Unmuted' : 'Muted'}</div> */}
         <div className="right-buttons-container">
+          <div
+            className="w-full text-center cursor-pointer"
+            onClick={() => {
+              setIsVoice(!isVoice);
+            }}
+          >
+            {isVoice ? "VOICE" : "CHAT"}
+          </div>
           <button className="text-xl">
             <SearchIcon />
           </button>
@@ -288,7 +316,7 @@ const ActiveRoom = () => {
         <div className="absolute bottom-0 flex flex-col w-screen p-3 items-center bg-white shadow-md">
           <EmojiPicker
             open={isEmojiOpen}
-            width={'100%'}
+            width={"100%"}
             previewConfig={{ showPreview: false }}
             onEmojiClick={(e) => setMessageText((prev) => prev + e.emoji)}
             searchDisabled={true}
@@ -302,7 +330,7 @@ const ActiveRoom = () => {
                 value={messageText}
                 onChange={(e) => setMessageText(e.target.value)}
                 onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
+                  if (e.key === "Enter") {
                     handleSendMessage();
                     e.preventDefault();
                   }

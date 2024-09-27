@@ -8,6 +8,7 @@ const routesPath = {
   TEST: '/test',
   ABOUT : '/about',
   CHAT : '/chat',
+  GAME: '/game',
   PROFILE : '/profile'
 };
 

@@ -3,7 +3,7 @@ import {
   Route,
   HashRouter as Router,
   Routes,
-} from 'react-router-dom';
+} from "react-router-dom";
 
 import RoutesPath from './RoutesPath';
 import HomePage from '../containers/home/Home';
@@ -15,22 +15,23 @@ import AvatarProfile from '../containers/avatar-profile/AvatarProfile';
 
 const Layout = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path={RoutesPath.HOME} element={<HomePage />} />
-        <Route path={RoutesPath.VOICE} element={<Voice />} />
-        <Route path={RoutesPath.TEST} element={<TestChat />} />
-        <Route
-          path={RoutesPath.ALL}
-          element={<Navigate to={RoutesPath.HOME} replace />}
-        />
-        <Route path={RoutesPath.ABOUT} element={<AboutPerson />} />
-        <Route path={RoutesPath.CHAT} element={<ChatPage />} />
-        <Route path={RoutesPath.PROFILE} element={<AvatarProfile />} />
-
-
-      </Routes>
-    </Router>
+    <div className="flex justify-center bg-slate-300 h-[100vh] items-start">
+      <Router>
+        <Routes>
+          <Route path={RoutesPath.HOME} element={<HomePage />} />
+          <Route path={RoutesPath.VOICE} element={<Voice />} />
+          <Route path={RoutesPath.TEST} element={<TestChat />} />
+          <Route
+            path={RoutesPath.ALL}
+            element={<Navigate to={RoutesPath.HOME} replace />}
+          />
+          <Route path={RoutesPath.ABOUT} element={<AboutPerson />} />
+          <Route path={RoutesPath.CHAT} element={<ChatPage />} />
+          <Route path={RoutesPath.PROFILE} element={<AvatarProfile />} />
+          <Route path={RoutesPath.GAME} element={<HomePage />} />
+        </Routes>
+      </Router>
+    </div>
   );
 };
 

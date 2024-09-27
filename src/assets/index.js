@@ -15,11 +15,6 @@ export { ReactComponent as EditRoundedIcon} from "../assets/icons/edit-rounded.s
 export { ReactComponent as PlayIcon} from "../assets/icons/play.svg";
 export { ReactComponent as VideoIcon} from "../assets/icons/video.svg";
 export  { ReactComponent as LeftRoundedIcon} from "../assets/icons/left-arrow-rounded.svg";
-
-
-
-
-
-
-
-
+export { ReactComponent as AvatarIcon } from "../assets/icons/Avatar.svg";
+export { ReactComponent as AddUserIcon } from "../assets/icons/AddUser.svg";
+export { ReactComponent as TickIcon } from "../assets/icons/tickIcon.svg";
