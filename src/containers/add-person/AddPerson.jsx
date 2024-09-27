@@ -1,24 +1,24 @@
-import { AddUserIcon } from "../../assets";
-import { AvatarIcon } from "../../assets";
-import { SearchIcon } from "../../assets";
-import grandpaDummy from "../../assets/images/grandpaDummy.png";
-import grandmaDummy from "../../assets/images/grandmaDummy.png";
-import { useRef, useState } from "react";
-import AudioVisualizer from "../../components/audio-visualizer/AudioVisualizer";
-import { LeftArrowIcon } from "../../assets";
-import { useNavigate } from "react-router-dom";
-import { AI_AGENT_LIST } from "../../constants/common";
+import { AddUserIcon } from '../../assets';
+import { AvatarIcon } from '../../assets';
+import { SearchIcon } from '../../assets';
+import grandpaDummy from '../../assets/images/grandpaDummy.png';
+import grandmaDummy from '../../assets/images/grandmaDummy.png';
+import { useRef, useState } from 'react';
+import AudioVisualizer from '../../components/audio-visualizer/AudioVisualizer';
+import { LeftArrowIcon } from '../../assets';
+import { useNavigate } from 'react-router-dom';
+import { AI_AGENT_LIST } from '../../constants/common';
 
 const personList = [
   {
-    name: "William James",
+    name: 'William James',
     avatar: grandpaDummy,
-    relation: "Popup",
+    relation: 'Popup',
   },
   {
-    name: "Annie William",
+    name: 'Annie William',
     avatar: grandmaDummy,
-    relation: "Meamaw",
+    relation: 'Meamaw',
   },
 ];
 
@@ -66,7 +66,7 @@ const AddPerson = () => {
   };
 
   const filteredAgentList = AI_AGENT_LIST.filter(
-    (item) => item.persona !== "Game"
+    (item) => item.persona !== 'Game' || item.persona !== 'Assistant'
   );
 
   return (

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import {
   LeftArrowIcon,
   SmileIcon,
@@ -6,9 +6,9 @@ import {
   CameraIcon,
   SendIcon,
   SettingsIcon,
-} from "../../assets";
-import EmojiPicker from "emoji-picker-react";
-import { dummyData } from "../../constants/dummyData";
+} from '../../assets';
+import EmojiPicker from 'emoji-picker-react';
+import { dummyData } from '../../constants/dummyData';
 import {
   LayoutContextProvider,
   LiveKitRoom,
@@ -17,19 +17,19 @@ import {
   useLocalParticipant,
   useTrackTranscription,
   useVoiceAssistant,
-} from "@livekit/components-react";
-import { Track } from "livekit-client";
-import { segmentToChatMessage } from "./chat-utils";
-import { ChatBubble } from "./components/chat-bubble";
-import bg from "../../assets/images/call-bg.jpg";
-import audio from "../../assets/images/audio.png";
-import audio1 from "../../assets/images/audio1.png";
-import close from "../../assets/images/close.png";
-import call from "../../assets/images/call.png";
+} from '@livekit/components-react';
+import { Track } from 'livekit-client';
+import { segmentToChatMessage } from './chat-utils';
+import { ChatBubble } from './components/chat-bubble';
+import bg from '../../assets/images/call-bg.jpg';
+import audio from '../../assets/images/audio.png';
+import audio1 from '../../assets/images/audio1.png';
+import close from '../../assets/images/close.png';
+import call from '../../assets/images/call.png';
 
 import { VoiceOverlay } from './components/voice-overlay';
-import { AI_AGENT_LIST } from "../../constants/common";
-import { useNavigate, useParams } from "react-router-dom";
+import { AI_AGENT_LIST } from '../../constants/common';
+import { useNavigate, useParams } from 'react-router-dom';
 
 // const BLAH = [
 //   {
@@ -70,7 +70,6 @@ import { useNavigate, useParams } from "react-router-dom";
 //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGl0eSI6IiIsIm5hbWUiOiJteSBuYW1lIiwidmlkZW8iOnsicm9vbUNyZWF0ZSI6ZmFsc2UsInJvb21MaXN0IjpmYWxzZSwicm9vbVJlY29yZCI6ZmFsc2UsInJvb21BZG1pbiI6ZmFsc2UsInJvb21Kb2luIjp0cnVlLCJyb29tIjoibXktcm9vbSIsImNhblB1Ymxpc2giOnRydWUsImNhblN1YnNjcmliZSI6dHJ1ZSwiY2FuUHVibGlzaERhdGEiOnRydWUsImNhblB1Ymxpc2hTb3VyY2VzIjpbXSwiY2FuVXBkYXRlT3duTWV0YWRhdGEiOmZhbHNlLCJpbmdyZXNzQWRtaW4iOmZhbHNlLCJoaWRkZW4iOmZhbHNlLCJyZWNvcmRlciI6ZmFsc2UsImFnZW50IjpmYWxzZX0sInNpcCI6eyJhZG1pbiI6ZmFsc2UsImNhbGwiOmZhbHNlfSwiYXR0cmlidXRlcyI6e30sIm1ldGFkYXRhIjoiIiwic2hhMjU2IjoiIiwic3ViIjoiaWRlbnRpdHkiLCJpc3MiOiJBUElMYURYRlo2amNmZ2QiLCJuYmYiOjE3Mjc0MzUxOTksImV4cCI6MTcyNzQ1Njc5OX0.z4F_IFABGISYZOeh0bcy7ilkIlIT2CltJilaBJwAI50';
 
 // configure with route
-const isVoiceAgent = false;
 
 function ChatPage() {
   const [isEmojiOpen, setIsEmojiOpen] = useState(false);
@@ -80,6 +79,7 @@ function ChatPage() {
 
   const params = useParams();
   const personId = params.id;
+  const isVoiceAgent = personId === '6';
 
   const navigate = useNavigate();
 
@@ -136,6 +136,7 @@ function ChatPage() {
             isVoice={isVoice}
             setIsVoice={setIsVoice}
             ActivePersona={activePersona}
+            isVoiceAgent={isVoiceAgent}
           />
         </LiveKitRoom>
       </div>
@@ -143,7 +144,7 @@ function ChatPage() {
   );
 }
 
-const ActiveRoom = ({ ActivePersona, isVoice, setIsVoice }) => {
+const ActiveRoom = ({ ActivePersona, isVoice, setIsVoice,isVoiceAgent }) => {
   const voiceAssistant = useVoiceAssistant();
 
   const agentAudioTrack = voiceAssistant?.audioTrack;
@@ -163,13 +164,13 @@ const ActiveRoom = ({ ActivePersona, isVoice, setIsVoice }) => {
 
   // temp
   const [isEmojiOpen, setIsEmojiOpen] = useState(false);
-  const [messageText, setMessageText] = useState("");
+  const [messageText, setMessageText] = useState('');
   const [replyingTo, setReplyingTo] = useState(null);
 
   const handleSendMessage = () => {
     if (messageText.length > 0) {
       sendChat(messageText);
-      setMessageText("");
+      setMessageText('');
     }
     // setIsEmojiOpen(false);
     // if (!messageText) return;
@@ -218,11 +219,11 @@ const ActiveRoom = ({ ActivePersona, isVoice, setIsVoice }) => {
       let name = msg.from?.name;
       if (!name) {
         if (isAgent) {
-          name = "Agent";
+          name = 'Agent';
         } else if (isSelf) {
-          name = "You";
+          name = 'You';
         } else {
-          name = "Unknown";
+          name = 'Unknown';
         }
       }
       allMessages.push({
@@ -245,6 +246,8 @@ const ActiveRoom = ({ ActivePersona, isVoice, setIsVoice }) => {
 
   const { isMicrophoneEnabled } = localParticipant;
 
+  const navigate = useNavigate();
+
   return (
     <>
       <RoomAudioRenderer muted={!isVoice} />
@@ -259,6 +262,7 @@ const ActiveRoom = ({ ActivePersona, isVoice, setIsVoice }) => {
           onClose={() => {
             setIsVoice(false);
             localParticipant?.localParticipant?.setMicrophoneEnabled(false);
+            navigate('/home');
             // re route to home page
           }}
         />
@@ -268,8 +272,8 @@ const ActiveRoom = ({ ActivePersona, isVoice, setIsVoice }) => {
           className="w-screen h-screen fixed inset-0 z-10"
           style={{
             backgroundImage: `url(${bg})`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover',
           }}
         >
           <div className="h-full flex flex-col items-center relative">
@@ -277,7 +281,7 @@ const ActiveRoom = ({ ActivePersona, isVoice, setIsVoice }) => {
               {ActivePersona?.persona}
             </div>
             <div className="text-[#656464A8] opacity-[0.6] text-[21px] font-normal mt-[1px]">
-              {ActivePersona?.token ? "Connected" : "Connecting..."}
+              {ActivePersona?.token ? 'Connected' : 'Connecting...'}
             </div>
             <img
               src={ActivePersona?.imageSrc}
@@ -320,11 +324,11 @@ const ActiveRoom = ({ ActivePersona, isVoice, setIsVoice }) => {
 
         <div
           className="absolute bottom-0 flex flex-col w-screen p-3 items-center bg-white"
-          style={{ boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.12)" }}
+          style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.12)' }}
         >
           <EmojiPicker
             open={isEmojiOpen}
-            width={"100%"}
+            width={'100%'}
             previewConfig={{ showPreview: false }}
             onEmojiClick={(e) => setMessageText((prev) => prev + e.emoji)}
             searchDisabled={true}
@@ -339,7 +343,7 @@ const ActiveRoom = ({ ActivePersona, isVoice, setIsVoice }) => {
                 value={messageText}
                 onChange={(e) => setMessageText(e.target.value)}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter") {
+                  if (e.key === 'Enter') {
                     handleSendMessage();
                     e.preventDefault();
                   }
