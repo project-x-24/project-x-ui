@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { MemoryBg, StarIcon, PaperClip, ClockIcon } from '../../assets';
+import { MemoryBg, StarIcon, PaperClip, ClockIcon, SmileActive, SadActive, AngryActive, DumbActive, HappyActive, SmileInactive, HappyInactive, SadInactive, AngryInactive, DumbInactive } from '../../assets';
 import { FaceAssistBg } from '../../assets';
 import { VoiceAssistBg } from '../../assets';
 import { ChatBg } from '../../assets';
@@ -7,6 +7,7 @@ import { RightIcon } from '../../assets';
 import BottomTab from "../../components/bottom-tab/BottomTab";
 import { useEffect, useState } from 'react';
 import { getTodoList } from './api';
+import { useState } from 'react';
 
 function HomePage({ name }) {
   const navigate = useNavigate();
@@ -50,7 +51,15 @@ function HomePage({ name }) {
       disabled: true,
     },
   ];
+  const emotions = [
+	{ name: 'sad', activeIcon: <SadActive />, inactiveIcon: <SadInactive /> },
+	{ name: 'angry', activeIcon: <AngryActive />, inactiveIcon: <AngryInactive /> },
+	{ name: 'happy', activeIcon: <HappyActive />, inactiveIcon: <HappyInactive /> },
+	{ name: 'dumb', activeIcon: <DumbActive />, inactiveIcon: <DumbInactive /> },
+	{ name: 'smile', activeIcon: <SmileActive />, inactiveIcon: <SmileInactive /> },
+  ];
 
+  const [activeEmoji,  setActiveEmoji] = useState('happy');
   return (
 			<>
     <div className="h-[calc(100vh-78px)] overflow-auto p-6 w-screen bg-white">
@@ -63,12 +72,20 @@ function HomePage({ name }) {
           How are you feeling today?
         </h2>
         <div className="flex space-x-4">
-          <span className="text-3xl cursor-pointer">😀</span>
-          <span className="text-3xl cursor-pointer">😢</span>
-          <span className="text-3xl cursor-pointer">😡</span>
-          <span className="text-3xl cursor-pointer">😎</span>
-          <span className="text-3xl cursor-pointer">🤔</span>
+      {emotions.map((emotion) => (
+        <div
+          key={emotion.name}
+          onClick={() => setActiveEmoji(emotion.name)}
+          className={`cursor-pointer rounded-full  p-1 transition-transform duration-150 ${
+            activeEmoji === emotion.name
+              ? "transform scale-110 border-2 border-red-500"
+              : "border-2 border-gray-200"
+          }`}
+        >
+          {activeEmoji === emotion.name ? emotion.activeIcon : emotion.inactiveIcon}
         </div>
+      ))}
+    </div>
         <span className="text-[14px] text-[#969696] my-4">
           Tap to share your mood
         </span>
