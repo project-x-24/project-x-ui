@@ -7,7 +7,8 @@ const routesPath = {
   VOICE: '/voice',
   TEST: '/test',
   ABOUT : '/about',
-  CHAT : '/chat'
+  CHAT : '/chat',
+  PROFILE : '/profile'
 };
 
 export default routesPath;

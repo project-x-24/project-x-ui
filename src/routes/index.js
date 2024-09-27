@@ -10,7 +10,8 @@ import HomePage from '../containers/home/Home';
 import { Voice } from '../containers/voice/Voice';
 import { TestChat } from '../containers/test-chat/TestChat';
 import AboutPerson from '../containers/about-person/AboutPerson';
-import ChatPage from '../containers/chat-ui/ChatPage';
+import ChatPage from '../components/chat-ui/ChatPage';
+import AvatarProfile from '../containers/avatar-profile/AvatarProfile';
 
 const Layout = () => {
   return (
@@ -25,6 +26,8 @@ const Layout = () => {
         />
         <Route path={RoutesPath.ABOUT} element={<AboutPerson />} />
         <Route path={RoutesPath.CHAT} element={<ChatPage />} />
+        <Route path={RoutesPath.PROFILE} element={<AvatarProfile />} />
+
 
       </Routes>
     </Router>
