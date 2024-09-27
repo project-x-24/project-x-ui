@@ -8,6 +8,7 @@ import {
 import RoutesPath from './RoutesPath';
 import HomePage from '../containers/home/Home';
 import { Voice } from '../containers/voice/Voice';
+import { TestChat } from '../containers/test-chat/TestChat';
 
 const Layout = () => {
   return (
@@ -15,6 +16,7 @@ const Layout = () => {
       <Routes>
         <Route path={RoutesPath.HOME} element={<HomePage />} />
         <Route path={RoutesPath.VOICE} element={<Voice />} />
+        <Route path={RoutesPath.TEST} element={<TestChat />} />
         <Route
           path={RoutesPath.ALL}
           element={<Navigate to={RoutesPath.HOME} replace />}
