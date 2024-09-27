@@ -33,7 +33,7 @@ const BLAH = [
     timestamp: 1727412176139,
   },
   {
-    message: 'How can I assist you today?',
+    message: 'How can I assist you today? How can I assist you today?How can I assist you today?How can I assist you today?How can I assist you today?',
     name: 'Agent',
     isSelf: false,
     timestamp: 1727412178344,
@@ -129,7 +129,9 @@ const ActiveRoom = () => {
   const [replyingTo, setReplyingTo] = useState(null);
 
   const handleSendMessage = () => {
-    sendChat(messageText);
+    if (messageText.length > 0) {
+      sendChat(messageText);
+    }
     // setIsEmojiOpen(false);
     // if (!messageText) return;
     // const newMessage = {
