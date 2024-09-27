@@ -9,7 +9,7 @@ const routesPath = {
   ABOUT : '/about',
   CHAT : '/chat/:id',
   GAME: '/game',
-  PROFILE : '/profile',
+  PROFILE : '/profile/:id',
   TODO : '/todo',
   ADD_PERSON: "/add-person",
 };

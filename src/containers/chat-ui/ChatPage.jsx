@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import {
   LeftArrowIcon,
   SmileIcon,
@@ -6,9 +6,9 @@ import {
   CameraIcon,
   SendIcon,
   SettingsIcon,
-} from '../../assets';
-import EmojiPicker from 'emoji-picker-react';
-import { dummyData } from '../../constants/dummyData';
+} from "../../assets";
+import EmojiPicker from "emoji-picker-react";
+import { dummyData } from "../../constants/dummyData";
 import {
   LayoutContextProvider,
   LiveKitRoom,
@@ -17,19 +17,19 @@ import {
   useLocalParticipant,
   useTrackTranscription,
   useVoiceAssistant,
-} from '@livekit/components-react';
-import { Track } from 'livekit-client';
-import { segmentToChatMessage } from './chat-utils';
-import { ChatBubble } from './components/chat-bubble';
-import bg from '../../assets/images/call-bg.jpg';
-import audio from '../../assets/images/audio.png';
-import audio1 from '../../assets/images/audio1.png';
-import close from '../../assets/images/close.png';
-import call from '../../assets/images/call.png';
+} from "@livekit/components-react";
+import { Track } from "livekit-client";
+import { segmentToChatMessage } from "./chat-utils";
+import { ChatBubble } from "./components/chat-bubble";
+import bg from "../../assets/images/call-bg.jpg";
+import audio from "../../assets/images/audio.png";
+import audio1 from "../../assets/images/audio1.png";
+import close from "../../assets/images/close.png";
+import call from "../../assets/images/call.png";
 
-import { VoiceOverlay } from './components/voice-overlay';
-import { AI_AGENT_LIST } from '../../constants/common';
-import { useNavigate, useParams } from 'react-router-dom';
+import { VoiceOverlay } from "./components/voice-overlay";
+import { AI_AGENT_LIST } from "../../constants/common";
+import { useNavigate, useParams } from "react-router-dom";
 
 // const BLAH = [
 //   {
@@ -79,12 +79,16 @@ function ChatPage() {
 
   const params = useParams();
   const personId = params.id;
-  const isVoiceAgent = personId === '6';
+  const isVoiceAgent = personId === "6";
 
   const navigate = useNavigate();
 
   const handleOnBackButtonClick = () => {
     navigate(-1);
+  };
+
+  const handleSettingsClick = () => {
+    navigate(`/profile/${personId}`);
   };
 
   useEffect(() => {
@@ -126,7 +130,7 @@ function ChatPage() {
                 setIsVoice(!isVoice);
               }}
             />
-            <SettingsIcon fill="#98A2B3" />
+            <SettingsIcon fill="#98A2B3" onClick={handleSettingsClick} />
           </div>
         </div>
         <LiveKitRoom
@@ -166,13 +170,13 @@ const ActiveRoom = ({ ActivePersona, isVoice, setIsVoice, isVoiceAgent }) => {
 
   // temp
   const [isEmojiOpen, setIsEmojiOpen] = useState(false);
-  const [messageText, setMessageText] = useState('');
+  const [messageText, setMessageText] = useState("");
   const [replyingTo, setReplyingTo] = useState(null);
 
   const handleSendMessage = () => {
     if (messageText.length > 0) {
       sendChat(messageText);
-      setMessageText('');
+      setMessageText("");
     }
     // setIsEmojiOpen(false);
     // if (!messageText) return;
@@ -221,11 +225,11 @@ const ActiveRoom = ({ ActivePersona, isVoice, setIsVoice, isVoiceAgent }) => {
       let name = msg.from?.name;
       if (!name) {
         if (isAgent) {
-          name = 'Agent';
+          name = "Agent";
         } else if (isSelf) {
-          name = 'You';
+          name = "You";
         } else {
-          name = 'Unknown';
+          name = "Unknown";
         }
       }
       allMessages.push({
@@ -271,7 +275,7 @@ const ActiveRoom = ({ ActivePersona, isVoice, setIsVoice, isVoiceAgent }) => {
           onClose={() => {
             setIsVoice(false);
             localParticipant?.localParticipant?.setMicrophoneEnabled(false);
-            navigate('/home');
+            navigate("/home");
             // re route to home page
           }}
         />
@@ -281,8 +285,8 @@ const ActiveRoom = ({ ActivePersona, isVoice, setIsVoice, isVoiceAgent }) => {
           className="w-screen h-screen fixed inset-0 z-10"
           style={{
             backgroundImage: `url(${bg})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
           }}
         >
           <div className="h-full flex flex-col items-center relative">
@@ -290,7 +294,7 @@ const ActiveRoom = ({ ActivePersona, isVoice, setIsVoice, isVoiceAgent }) => {
               {ActivePersona?.persona}
             </div>
             <div className="text-[#656464A8] opacity-[0.6] text-[21px] font-normal mt-[1px]">
-              {ActivePersona?.token ? 'Connected' : 'Connecting...'}
+              {ActivePersona?.token ? "Connected" : "Connecting..."}
             </div>
             <img
               src={ActivePersona?.imageSrc}
@@ -334,11 +338,11 @@ const ActiveRoom = ({ ActivePersona, isVoice, setIsVoice, isVoiceAgent }) => {
 
         <div
           className="absolute bottom-0 flex flex-col w-screen p-3 items-center bg-white"
-          style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.12)' }}
+          style={{ boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.12)" }}
         >
           <EmojiPicker
             open={isEmojiOpen}
-            width={'100%'}
+            width={"100%"}
             previewConfig={{ showPreview: false }}
             onEmojiClick={(e) => setMessageText((prev) => prev + e.emoji)}
             searchDisabled={true}
@@ -353,7 +357,7 @@ const ActiveRoom = ({ ActivePersona, isVoice, setIsVoice, isVoiceAgent }) => {
                 value={messageText}
                 onChange={(e) => setMessageText(e.target.value)}
                 onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
+                  if (e.key === "Enter") {
                     handleSendMessage();
                     e.preventDefault();
                   }
