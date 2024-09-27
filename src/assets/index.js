@@ -28,7 +28,18 @@ export { ReactComponent as PaperClip } from "../assets/icons/paperclip.svg";
 export { ReactComponent as StarIcon } from "../assets/icons/star.svg";
 export { ReactComponent as MemoryIcon } from "../assets/icons/memory.svg";
 export { ReactComponent as PieIcon } from "../assets/icons/pie-chart.svg";
+export { ReactComponent as HappyActive } from "../assets/icons/happy-active.svg";
+export { ReactComponent as HappyInactive } from "../assets/icons/happy-inactive.svg";
+export { ReactComponent as SmileActive } from "../assets/icons/smile-active.svg";
+export { ReactComponent as SmileInactive } from "../assets/icons/smile-inactive.svg";
+export { ReactComponent as DumbActive } from "../assets/icons/dumb-active.svg";
+export { ReactComponent as DumbInactive } from "../assets/icons/dumb-inactive.svg";
+export { ReactComponent as AngryActive } from "../assets/icons/angry-active.svg";
+export { ReactComponent as AngryInactive } from "../assets/icons/angry-inactive.svg";
+export { ReactComponent as SadActive } from "../assets/icons/sad-active.svg";
+export { ReactComponent as SadInactive } from "../assets/icons/sad-inactive.svg";
 export { ReactComponent as HomeIcon } from "../assets/icons/home.svg";
+
 
 
 
