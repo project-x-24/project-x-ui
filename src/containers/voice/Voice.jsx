@@ -11,12 +11,12 @@ import speaker from '../../assets/images/speaker.png';
 import video from '../../assets/images/video.png';
 import close from '../../assets/images/close.png';
 
-const serverUrl = 'wss://demo-app-llkt0pq2.livekit.cloud';
+const serverUrl = 'wss://prod-k9bgadix.livekit.cloud';
 const TOKEN =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mjc3NzAyMjgsImlzcyI6IkFQSWl0bUM1OHpSRUN6OSIsIm5hbWUiOiJkb3lsZSIsIm5iZiI6MTcyNzQyNDYyOCwic3ViIjoiZG95bGUiLCJ2aWRlbyI6eyJyb29tIjoiZG95bGVzcm9vbSIsInJvb21Kb2luIjp0cnVlfX0.4e18z_wstFVjD69ZGf9sPv-43jmxfeR9AU5B5nH0hr0';
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGl0eSI6IiIsIm5hbWUiOiJteSBuYW1lIiwidmlkZW8iOnsicm9vbUNyZWF0ZSI6ZmFsc2UsInJvb21MaXN0IjpmYWxzZSwicm9vbVJlY29yZCI6ZmFsc2UsInJvb21BZG1pbiI6ZmFsc2UsInJvb21Kb2luIjp0cnVlLCJyb29tIjoibXktcm9vbSIsImNhblB1Ymxpc2giOnRydWUsImNhblN1YnNjcmliZSI6dHJ1ZSwiY2FuUHVibGlzaERhdGEiOnRydWUsImNhblB1Ymxpc2hTb3VyY2VzIjpbXSwiY2FuVXBkYXRlT3duTWV0YWRhdGEiOmZhbHNlLCJpbmdyZXNzQWRtaW4iOmZhbHNlLCJoaWRkZW4iOmZhbHNlLCJyZWNvcmRlciI6ZmFsc2UsImFnZW50IjpmYWxzZX0sInNpcCI6eyJhZG1pbiI6ZmFsc2UsImNhbGwiOmZhbHNlfSwiYXR0cmlidXRlcyI6e30sIm1ldGFkYXRhIjoiIiwic2hhMjU2IjoiIiwic3ViIjoiaWRlbnRpdHkiLCJpc3MiOiJBUElMYURYRlo2amNmZ2QiLCJuYmYiOjE3Mjc0MzUxOTksImV4cCI6MTcyNzQ1Njc5OX0.z4F_IFABGISYZOeh0bcy7ilkIlIT2CltJilaBJwAI50';
 
 export const Voice = () => {
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState(TOKEN);
   const [url, setUrl] = useState(serverUrl);
 
   return (
