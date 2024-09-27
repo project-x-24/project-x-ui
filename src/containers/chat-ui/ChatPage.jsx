@@ -144,7 +144,7 @@ function ChatPage() {
   );
 }
 
-const ActiveRoom = ({ ActivePersona, isVoice, setIsVoice,isVoiceAgent }) => {
+const ActiveRoom = ({ ActivePersona, isVoice, setIsVoice, isVoiceAgent }) => {
   const voiceAssistant = useVoiceAssistant();
 
   const agentAudioTrack = voiceAssistant?.audioTrack;
@@ -247,6 +247,13 @@ const ActiveRoom = ({ ActivePersona, isVoice, setIsVoice,isVoiceAgent }) => {
   const { isMicrophoneEnabled } = localParticipant;
 
   const navigate = useNavigate();
+
+  // TODO: check if this works or not
+  useEffect(() => {
+    if (isVoice) {
+      localParticipant?.localParticipant?.setMicrophoneEnabled?.(true);
+    }
+  }, [isVoice]);
 
   return (
     <>
