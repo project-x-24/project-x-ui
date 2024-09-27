@@ -4,6 +4,7 @@ import { FaceAssistBg } from '../../assets';
 import { VoiceAssistBg } from '../../assets';
 import { ChatBg } from '../../assets';
 import { RightIcon } from '../../assets';
+import BottomTab from "../../components/bottom-tab/BottomTab";
 
 function HomePage({ name }) {
   const navigate = useNavigate();
@@ -46,6 +47,7 @@ function HomePage({ name }) {
     { text: 'Budget planning', time: '7:30 PM' },
   ];
   return (
+			<>
     <div className="min-h-screen p-6 w-screen bg-white">
       {/* Greeting */}
       <div className="text-[18px] leading-7 font-[500] mb-6">Hi {name} 👋</div>
@@ -131,7 +133,10 @@ function HomePage({ name }) {
           </div>
         ))}
       </div>
+			
     </div>
+		<BottomTab activeTab={"home"}/>
+		</>
   );
 }
 
