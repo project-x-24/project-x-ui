@@ -41,7 +41,7 @@ export const Voice = () => {
             className="rounded-full w-[172px] h-[172px] object-cover mt-[26px]"
           />
           <LiveKitRoom
-            token={token}
+            token={null}
             serverUrl={url}
             connectOptions={{ autoSubscribe: true }}
             className="w-full"

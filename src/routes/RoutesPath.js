@@ -10,6 +10,7 @@ const routesPath = {
   CHAT : '/chat',
   GAME: '/game',
   PROFILE : '/profile',
+  TODO : '/todo',
   ADD_PERSON: "/add-person",
 };
 
