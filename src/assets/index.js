@@ -35,3 +35,4 @@ export { ReactComponent as HomeIcon } from "../assets/icons/home.svg";
 
 
 
+export { ReactComponent as SettingsIcon } from "../assets/icons/settingsIcon.svg";
