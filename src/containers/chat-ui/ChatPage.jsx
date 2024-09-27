@@ -28,42 +28,48 @@ import { ChatBubble } from './components/chat-bubble';
 import bg from '../../assets/images/call-bg.jpg';
 import avatar from '../../assets/images/avatar.jpg';
 import audio from '../../assets/images/audio.png';
+import audio1 from '../../assets/images/audio1.png';
 import speaker from '../../assets/images/speaker.png';
 import close from '../../assets/images/close.png';
+import call from '../../assets/images/call.png';
+import search from '../../assets/images/search.png';
+import dots from '../../assets/images/dots.png';
+
 import { AI_AGENT_LIST } from '../../constants/common';
 
-// const BLAH = [
-//   {
-//     message: 'Hello. Good afternoon, Bobby.',
-//     name: 'Agent',
-//     isSelf: false,
-//     timestamp: 1727412176139,
-//   },
-//   {
-//     message: 'How can I assist you today? How can I assist you today?How can I assist you today?How can I assist you today?How can I assist you today?',
-//     name: 'Agent',
-//     isSelf: false,
-//     timestamp: 1727412178344,
-//   },
-//   {
-//     name: 'my name',
-//     message: 'how are you today',
-//     timestamp: 1727412214643,
-//     isSelf: true,
-//   },
-//   {
-//     message: "I'm doing well, thank you for asking!",
-//     name: 'Agent',
-//     isSelf: false,
-//     timestamp: 1727412217475,
-//   },
-//   {
-//     message: 'How can I assist you today, Bobby?',
-//     name: 'Agent',
-//     isSelf: false,
-//     timestamp: 1727412220094,
-//   },
-// ];
+const BLAH = [
+  {
+    message: 'Hello. Good afternoon, Bobby.',
+    name: 'Agent',
+    isSelf: false,
+    timestamp: 1727412176139,
+  },
+  {
+    message:
+      'How can I assist you today? How can I assist you today?How can I assist you today?How can I assist you today?How can I assist you today?',
+    name: 'Agent',
+    isSelf: false,
+    timestamp: 1727412178344,
+  },
+  {
+    name: 'my name',
+    message: 'how are you today',
+    timestamp: 1727412214643,
+    isSelf: true,
+  },
+  {
+    message: "I'm doing well, thank you for asking!",
+    name: 'Agent',
+    isSelf: false,
+    timestamp: 1727412217475,
+  },
+  {
+    message: 'How can I assist you today, Bobby?',
+    name: 'Agent',
+    isSelf: false,
+    timestamp: 1727412220094,
+  },
+];
 
 // const serverUrl = 'wss://prod-k9bgadix.livekit.cloud';
 // const token =
@@ -83,7 +89,7 @@ function ChatPage() {
     <LayoutContextProvider>
       <div className="flex flex-col h-screen w-screen">
         {/* Chat Header */}
-        <div className="flex items-center justify-between p-3 bg-white shadow-md">
+        <div className="flex items-center justify-between py-3 px-[24px] bg-white shadow-md border-b border-[#F4F4F4]">
           <div className="flex">
             <button className="text-xl">
               <LeftArrowIcon />
@@ -98,7 +104,9 @@ function ChatPage() {
                 className="rounded-full w-10 h-10 ml-3 object-cover"
               />
               <div className="ml-3 flex-grow">
-                <p className="font-bold">{activePersona.persona}</p>
+                <p className="font-bold text-[rgba(16,25,40,1)]">
+                  {activePersona.persona}
+                </p>
               </div>
               {showPersonaDropdown && (
                 <div className="flex flex-col absolute top-[60px] z-50 bg-white rounded-lg px-3 py-2 gap-2 min-w-[75vw]">
@@ -123,21 +131,16 @@ function ChatPage() {
               )}
             </div>
           </div>
-          <div className="right-buttons-container">
-            <div
-              className="w-full text-center cursor-pointer"
+          <div className="right-buttons-container flex gap-[24px]">
+            <img
+              className="w-[24px] h-[24px]"
+              src={call}
               onClick={() => {
                 setIsVoice(!isVoice);
               }}
-            >
-              {isVoice ? 'VOICE' : 'CHAT'}
-            </div>
-            <button className="text-xl">
-              <SearchIcon />
-            </button>
-            <button className="text-xl ml-[20px]">
-              <MenuIcon />
-            </button>
+            />
+            <img className="w-[24px] h-[24px]" src={search} />
+            <img className="w-[24px] h-[24px]" src={dots} />
           </div>
         </div>
         <LiveKitRoom
@@ -287,7 +290,7 @@ const ActiveRoom = ({ ActivePersona, isVoice, setIsVoice }) => {
                 {/* <img className="cursor-pointer" src={video} /> */}
                 <img
                   className="cursor-pointer"
-                  src={isMicrophoneEnabled ? audio : speaker}
+                  src={isMicrophoneEnabled ? audio1 : audio}
                   onClick={() => {
                     localParticipant?.localParticipant?.setMicrophoneEnabled(
                       !isMicrophoneEnabled
@@ -308,7 +311,7 @@ const ActiveRoom = ({ ActivePersona, isVoice, setIsVoice }) => {
         </main>
       )}
       <div className="relative flex flex-col h-[calc(100vh-74px)]">
-        <div className=" flex-grow flex flex-col w-full bg-gray-100 overflow-y-auto">
+        <div className=" flex-grow flex flex-col w-full bg-white overflow-y-auto">
           <div className="flex flex-col h-[calc(100%-74px)] overflow-auto p-3">
             {messages.map((message) => (
               <ChatBubble key={message.timestamp} message={message} />
@@ -316,7 +319,10 @@ const ActiveRoom = ({ ActivePersona, isVoice, setIsVoice }) => {
           </div>
         </div>
 
-        <div className="absolute bottom-0 flex flex-col w-screen p-3 items-center bg-white shadow-md">
+        <div
+          className="absolute bottom-0 flex flex-col w-screen p-3 items-center bg-white"
+          style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.12)' }}
+        >
           <EmojiPicker
             open={isEmojiOpen}
             width={'100%'}
@@ -324,12 +330,13 @@ const ActiveRoom = ({ ActivePersona, isVoice, setIsVoice }) => {
             onEmojiClick={(e) => setMessageText((prev) => prev + e.emoji)}
             searchDisabled={true}
           />
+          {/* Fix styles */}
           <div className="flex w-screen p-3 items-center">
-            <div className="flex w-full p-2 rounded-full bg-gray-100 outline-none">
+            <div className="flex w-full p-2 h-[46px] rounded-full bg-white border border-[#98A2B3] outline-none">
               <input
                 type="text"
-                placeholder="Message..."
-                className="bg-gray-100 outline-none w-full pd-l-2"
+                placeholder="Type your message"
+                className="bg-white text-[#1E1E1E] placeholder-[#98A2B3] outline-none w-full pd-l-2"
                 value={messageText}
                 onChange={(e) => setMessageText(e.target.value)}
                 onKeyDown={(e) => {
@@ -351,11 +358,8 @@ const ActiveRoom = ({ ActivePersona, isVoice, setIsVoice }) => {
                 </button>
               </div>
             </div>
-            <button
-              className="text-xl text-blue-500"
-              onClick={handleSendMessage}
-            >
-              <SendIcon />
+            <button onClick={handleSendMessage} className="ml-[12px]">
+              <SendIcon className="w-[27px] h-[27px]" />
             </button>
           </div>
         </div>
