@@ -12,9 +12,9 @@ import {
 import { LocalParticipant, Track } from 'livekit-client';
 import { useCallback, useEffect, useState } from 'react';
 
-const serverUrl = 'wss://demo-app-llkt0pq2.livekit.cloud';
+const serverUrl = 'wss://projectx-2ef20wul.livekit.cloud';
 const token =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mjc2OTc1NTAsImlzcyI6IkFQSWl0bUM1OHpSRUN6OSIsIm5hbWUiOiJ0ZXN0X3VzZXIiLCJuYmYiOjE3MjczNTE5NTAsInN1YiI6InRlc3RfdXNlciIsInZpZGVvIjp7InJvb20iOiJ0ZXN0X3Jvb20iLCJyb29tSm9pbiI6dHJ1ZX19.Nu8Ci5L9MdlYyQQ6iS7UoZndCmFNC3NSxwfbAYeW3F0';
+  'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZGVudGl0eSI6IiIsIm5hbWUiOiJteSBuYW1lIiwidmlkZW8iOnsicm9vbUNyZWF0ZSI6ZmFsc2UsInJvb21MaXN0IjpmYWxzZSwicm9vbVJlY29yZCI6ZmFsc2UsInJvb21BZG1pbiI6ZmFsc2UsInJvb21Kb2luIjp0cnVlLCJyb29tIjoibXktcm9vbSIsImNhblB1Ymxpc2giOnRydWUsImNhblN1YnNjcmliZSI6dHJ1ZSwiY2FuUHVibGlzaERhdGEiOnRydWUsImNhblB1Ymxpc2hTb3VyY2VzIjpbXSwiY2FuVXBkYXRlT3duTWV0YWRhdGEiOmZhbHNlLCJpbmdyZXNzQWRtaW4iOmZhbHNlLCJoaWRkZW4iOmZhbHNlLCJyZWNvcmRlciI6ZmFsc2UsImFnZW50IjpmYWxzZX0sInNpcCI6eyJhZG1pbiI6ZmFsc2UsImNhbGwiOmZhbHNlfSwiYXR0cmlidXRlcyI6e30sIm1ldGFkYXRhIjoiIiwic2hhMjU2IjoiIiwic3ViIjoiaWRlbnRpdHkiLCJpc3MiOiJBUEk0cUNCWHQ4R2NXdEQiLCJuYmYiOjE3Mjc0MTIwNTYsImV4cCI6MTcyNzQzMzY1Nn0.GNr3wBcDcZPWVGHsPc2HKW_pC28FGHBXClvNN5yi2bI';
 
 export const TestChat = () => {
   return (
@@ -44,14 +44,13 @@ const ActiveRoom = () => {
   //   console.log('this is the message', message);
   // });
 
-  // const { chatMessages, send } =  useChat();
 
-  useEffect(() => {
-    setTimeout(() => {
-      // localParticipant?.
-      // send('Hello');
-    }, 2000);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     // localParticipant?.
+  //     send('Hello my name is rithwik');
+  //   }, 2000);
+  // }, []);
 
   // console.log(chatMessages)
 
