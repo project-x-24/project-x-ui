@@ -7,7 +7,7 @@ const routesPath = {
   VOICE: '/voice',
   TEST: '/test',
   ABOUT : '/about',
-  CHAT : '/chat',
+  CHAT : '/chat/:id',
   GAME: '/game',
   PROFILE : '/profile',
   TODO : '/todo',
