@@ -22,7 +22,7 @@ import {
   useVoiceAssistant,
 } from '@livekit/components-react';
 import { LocalParticipant, Track } from 'livekit-client';
-import { segmentToChatMessage } from '../../containers/chat-ui/chat-utils';
+import { segmentToChatMessage } from './chat-utils';
 
 const serverUrl = 'wss://projectx-2ef20wul.livekit.cloud';
 const token =
