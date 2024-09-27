@@ -1,8 +1,9 @@
 
-const Tab = ({ active, title, onClick }) => {
+const Tab = ({ active, title, onClick, isStart, isEnd }) => {
+  console.log(isStart)
   return (
     <div
-      className={`px-4 py-2 cursor-pointer ${active ? 'bg-blue-500 text-white' : 'text-gray-600'}`}
+      className={`px-4 py-2 text-center cursor-pointer w-[88px] ${active ? 'bg-[#EB5017] text-white' : 'text-gray-600 border'} ${isStart ? 'rounded-l-[8px]' : ''} ${isEnd ? 'rounded-r-[8px]' : ''} `}
       onClick={onClick}
     >
       {title}
@@ -17,13 +18,15 @@ const TabSwitcher = ({ tabs,  activeTab, setActiveTab }) => {
   };
 
   return (
-    <div className="flex gap-2">
+    <div className="flex">
       {tabs.map((tab) => (
         <Tab
           key={tab.value}
           active={activeTab === tab.value}
           title={tab.title}
           onClick={() => handleTabClick(tab.value)}
+          isStart={tabs[0] === tab}
+          isEnd={tabs[tabs.length - 1] === tab}
         />
       ))}
     </div>
