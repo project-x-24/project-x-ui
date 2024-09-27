@@ -24,6 +24,11 @@ import {
 import { LocalParticipant, Track } from 'livekit-client';
 import { segmentToChatMessage } from './chat-utils';
 import { ChatBubble } from './components/chat-bubble';
+import bg from '../../assets/images/call-bg.jpg';
+import avatar from '../../assets/images/avatar.jpg';
+import audio from '../../assets/images/audio.png';
+import speaker from '../../assets/images/speaker.png';
+import close from '../../assets/images/close.png';
 
 const BLAH = [
   {
@@ -33,7 +38,8 @@ const BLAH = [
     timestamp: 1727412176139,
   },
   {
-    message: 'How can I assist you today? How can I assist you today?How can I assist you today?How can I assist you today?How can I assist you today?',
+    message:
+      'How can I assist you today? How can I assist you today?How can I assist you today?How can I assist you today?How can I assist you today?',
     name: 'Agent',
     isSelf: false,
     timestamp: 1727412178344,
@@ -60,39 +66,13 @@ const BLAH = [
 
 const serverUrl = 'wss://prod-k9bgadix.livekit.cloud';
 const token =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGl0eSI6IiIsIm5hbWUiOiJteSBuYW1lIiwidmlkZW8iOnsicm9vbUNyZWF0ZSI6ZmFsc2UsInJvb21MaXN0IjpmYWxzZSwicm9vbVJlY29yZCI6ZmFsc2UsInJvb21BZG1pbiI6ZmFsc2UsInJvb21Kb2luIjp0cnVlLCJyb29tIjoibXktcm9vbSIsImNhblB1Ymxpc2giOnRydWUsImNhblN1YnNjcmliZSI6dHJ1ZSwiY2FuUHVibGlzaERhdGEiOnRydWUsImNhblB1Ymxpc2hTb3VyY2VzIjpbXSwiY2FuVXBkYXRlT3duTWV0YWRhdGEiOmZhbHNlLCJpbmdyZXNzQWRtaW4iOmZhbHNlLCJoaWRkZW4iOmZhbHNlLCJyZWNvcmRlciI6ZmFsc2UsImFnZW50IjpmYWxzZX0sInNpcCI6eyJhZG1pbiI6ZmFsc2UsImNhbGwiOmZhbHNlfSwiYXR0cmlidXRlcyI6e30sIm1ldGFkYXRhIjoiIiwic2hhMjU2IjoiIiwic3ViIjoiaWRlbnRpdHkiLCJpc3MiOiJBUElMYURYRlo2amNmZ2QiLCJuYmYiOjE3Mjc0MzUxOTksImV4cCI6MTcyNzQ1Njc5OX0.z4F_IFABGISYZOeh0bcy7ilkIlIT2CltJilaBJwAI50';
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGl0eSI6IiIsIm5hbWUiOiJteSBuYW1lIiwidmlkZW8iOnsicm9vbUNyZWF0ZSI6ZmFsc2UsInJvb21MaXN0IjpmYWxzZSwicm9vbVJlY29yZCI6ZmFsc2UsInJvb21BZG1pbiI6ZmFsc2UsInJvb21Kb2luIjp0cnVlLCJyb29tIjoicHJvZC1yb29tIiwiY2FuUHVibGlzaCI6dHJ1ZSwiY2FuU3Vic2NyaWJlIjp0cnVlLCJjYW5QdWJsaXNoRGF0YSI6dHJ1ZSwiY2FuUHVibGlzaFNvdXJjZXMiOltdLCJjYW5VcGRhdGVPd25NZXRhZGF0YSI6ZmFsc2UsImluZ3Jlc3NBZG1pbiI6ZmFsc2UsImhpZGRlbiI6ZmFsc2UsInJlY29yZGVyIjpmYWxzZSwiYWdlbnQiOmZhbHNlfSwic2lwIjp7ImFkbWluIjpmYWxzZSwiY2FsbCI6ZmFsc2V9LCJhdHRyaWJ1dGVzIjp7fSwibWV0YWRhdGEiOiIiLCJzaGEyNTYiOiIiLCJzdWIiOiJpZGVudGl0eSIsImlzcyI6IkFQSUxhRFhGWjZqY2ZnZCIsIm5iZiI6MTcyNzQ0NjI4OCwiZXhwIjoxNzI3NDY3ODg4fQ.pleFKZYWmF5_WYIlQB-vhyiX0746X6L-nOtiMSgQGMM';
 
 function ChatPage() {
-  const [messages, setMessages] = useState(dummyData);
-  const [replyingTo, setReplyingTo] = useState(null);
-  const [messageText, setMessageText] = useState('');
-  const [isEmojiOpen, setIsEmojiOpen] = useState(false);
-
   return (
     <LayoutContextProvider>
       <div className="flex flex-col h-screen w-screen">
         {/* Chat Header */}
-        <div className="flex items-center p-3 bg-white shadow-md">
-          <button className="text-xl">
-            <LeftArrowIcon />
-          </button>
-          <img
-            src="https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg"
-            alt="Profile"
-            className="rounded-full w-10 h-10 ml-3 object-cover"
-          />
-          <div className="ml-3 flex-grow">
-            <p className="font-bold">GrandPa</p>
-          </div>
-          <div className="right-buttons-container">
-            <button className="text-xl">
-              <SearchIcon />
-            </button>
-            <button className="text-xl ml-[20px]">
-              <MenuIcon />
-            </button>
-          </div>
-        </div>
         <LiveKitRoom
           serverUrl={serverUrl}
           token={token}
@@ -122,6 +102,8 @@ const ActiveRoom = () => {
   const { chatMessages, send: sendChat } = useChat();
 
   console.log(messages);
+
+  const [isVoice, setIsVoice] = useState(false);
 
   // temp
   const [isEmojiOpen, setIsEmojiOpen] = useState(false);
@@ -205,51 +187,149 @@ const ActiveRoom = () => {
     localMessages.segments,
   ]);
 
-  return (
-    <div className="relative flex flex-col h-full">
-      <div className="h-[calc(100vh-64px)] flex-grow flex flex-col w-full bg-gray-100 overflow-y-auto">
-        <div className="flex flex-col h-[calc(100%-88px)] overflow-auto p-3">
-          {messages.map((message) => (
-            <ChatBubble key={message.timestamp} message={message} />
-          ))}
-        </div>
-      </div>
+  const { isMicrophoneEnabled } = localParticipant;
 
-      <div className="absolute bottom-0 flex flex-col w-screen p-3 items-center bg-white shadow-md">
-        <EmojiPicker
-          open={isEmojiOpen}
-          width={'100%'}
-          previewConfig={{ showPreview: false }}
-          onEmojiClick={(e) => setMessageText((prev) => prev + e.emoji)}
-          searchDisabled={true}
-        />
-        <div className="flex w-screen p-3 items-center">
-          <div className="flex w-full p-2 rounded-full bg-gray-100 outline-none">
-            <input
-              type="text"
-              placeholder="Message..."
-              className="bg-gray-100 outline-none w-full pd-l-2"
-              value={messageText}
-              onChange={(e) => setMessageText(e.target.value)}
+  return (
+    <>
+      <RoomAudioRenderer muted={!isVoice} />
+      {isVoice && (
+        <main
+          className="w-screen h-screen fixed inset-0 z-10"
+          style={{
+            backgroundImage: `url(${bg})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover',
+          }}
+        >
+          <div className="h-full flex flex-col items-center relative">
+            <div className="text-black text-[32px] font-normal mt-[140px]">
+              Grand Pa
+            </div>
+            <div className="text-[#656464A8] opacity-[0.6] text-[21px] font-normal mt-[1px]">
+              {token ? 'Connected' : 'Connecting...'}
+            </div>
+            <img
+              src={avatar}
+              className="rounded-full w-[172px] h-[172px] object-cover mt-[26px]"
             />
-            <div className="right-buttons-container flex">
-              <button className="text-gray-500 mr-3">
-                <SmileIcon onClick={() => setIsEmojiOpen(!isEmojiOpen)} />
-              </button>
-              <button className="text-xl text-gray-500 mr-3">
-                <AttachmentIcon />
-              </button>
-              <button className="text-xl text-gray-500 mr-3">
-                <CameraIcon />
-              </button>
+            <div className="absolute bg-white w-full h-[94px] rounded-t-[9px] bottom-0">
+              <div className="flex gap-[24px] w-full h-full items-center justify-center">
+                {/* <img className="cursor-pointer" src={video} /> */}
+                <img
+                  className="cursor-pointer"
+                  src={isMicrophoneEnabled ? audio : speaker}
+                  onClick={() => {
+                    localParticipant?.localParticipant?.setMicrophoneEnabled(
+                      !isMicrophoneEnabled
+                    );
+                  }}
+                />
+                {/* <img className="cursor-pointer" src={speaker} /> */}
+                <img
+                  className="cursor-pointer"
+                  src={close}
+                  onClick={() => {
+                    setIsVoice(false);
+                  }}
+                />
+              </div>
             </div>
           </div>
-          <button className="text-xl text-blue-500" onClick={handleSendMessage}>
-            <SendIcon />
+        </main>
+      )}
+      <div className="flex items-center p-3 bg-white shadow-md">
+        <button className="text-xl">
+          <LeftArrowIcon />
+        </button>
+        <img
+          src="https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg"
+          alt="Profile"
+          className="rounded-full w-10 h-10 ml-3 object-cover"
+        />
+        <div className="ml-3 flex-grow">
+          <p className="font-bold">GrandPa</p>
+        </div>
+        <div
+          className="w-full text-center cursor-pointer"
+          onClick={() => {
+            setIsVoice(!isVoice);
+          }}
+        >
+          {isVoice ? 'VOICE' : 'CHAT'}
+        </div>
+        {/* <button
+          onClick={() => {
+            localParticipant?.localParticipant?.setMicrophoneEnabled(
+              !isMicrophoneEnabled
+            );
+          }}
+        >
+          Toggle Microphone
+        </button> */}
+        {/* <div>Audio Enabled: {isMicrophoneEnabled ? 'Unmuted' : 'Muted'}</div> */}
+        <div className="right-buttons-container">
+          <button className="text-xl">
+            <SearchIcon />
+          </button>
+          <button className="text-xl ml-[20px]">
+            <MenuIcon />
           </button>
         </div>
       </div>
-    </div>
+      <div className="relative flex flex-col h-[calc(100vh-74px)]">
+        <div className=" flex-grow flex flex-col w-full bg-gray-100 overflow-y-auto">
+          <div className="flex flex-col h-[calc(100%-74px)] overflow-auto p-3">
+            {messages.map((message) => (
+              <ChatBubble key={message.timestamp} message={message} />
+            ))}
+          </div>
+        </div>
+
+        <div className="absolute bottom-0 flex flex-col w-screen p-3 items-center bg-white shadow-md">
+          <EmojiPicker
+            open={isEmojiOpen}
+            width={'100%'}
+            previewConfig={{ showPreview: false }}
+            onEmojiClick={(e) => setMessageText((prev) => prev + e.emoji)}
+            searchDisabled={true}
+          />
+          <div className="flex w-screen p-3 items-center">
+            <div className="flex w-full p-2 rounded-full bg-gray-100 outline-none">
+              <input
+                type="text"
+                placeholder="Message..."
+                className="bg-gray-100 outline-none w-full pd-l-2"
+                value={messageText}
+                onChange={(e) => setMessageText(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    handleSendMessage();
+                    e.preventDefault();
+                  }
+                }}
+              />
+              <div className="right-buttons-container flex">
+                <button className="text-gray-500 mr-3">
+                  <SmileIcon onClick={() => setIsEmojiOpen(!isEmojiOpen)} />
+                </button>
+                <button className="text-xl text-gray-500 mr-3">
+                  <AttachmentIcon />
+                </button>
+                <button className="text-xl text-gray-500 mr-3">
+                  <CameraIcon />
+                </button>
+              </div>
+            </div>
+            <button
+              className="text-xl text-blue-500"
+              onClick={handleSendMessage}
+            >
+              <SendIcon />
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 
