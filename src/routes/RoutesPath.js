@@ -4,6 +4,7 @@ const routesPath = {
   SIGNUP: '/signup',
   LOGIN: '/login',
   HOME: '/home',
+  VOICE: '/voice',
 };
 
 export default routesPath;
