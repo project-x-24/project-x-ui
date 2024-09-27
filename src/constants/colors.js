@@ -1,0 +1,15 @@
+const COLORS = {
+  WHITE: "#FFFFFF",
+  PURPLE0: "#F2E7FE",
+  PURPLE1: "#DBB2FF",
+  PURPLE2: "#BB86FC",
+  PURPLE3: "#985EFF",
+  PURPLE4: "#7F39FB",
+  PURPLE5: "#6200EE",
+  PURPLE6: "#5600E8",
+  PURPLE7: "#3700B3",
+  PURPLE8: "#30009C",
+  PURPLE9: "#23036A",
+};
+
+export default COLORS;
