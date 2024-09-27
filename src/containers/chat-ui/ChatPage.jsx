@@ -23,6 +23,40 @@ import {
 } from '@livekit/components-react';
 import { LocalParticipant, Track } from 'livekit-client';
 import { segmentToChatMessage } from './chat-utils';
+import { ChatBubble } from './components/chat-bubble';
+
+const BLAH = [
+  {
+    message: 'Hello. Good afternoon, Bobby.',
+    name: 'Agent',
+    isSelf: false,
+    timestamp: 1727412176139,
+  },
+  {
+    message: 'How can I assist you today?',
+    name: 'Agent',
+    isSelf: false,
+    timestamp: 1727412178344,
+  },
+  {
+    name: 'my name',
+    message: 'how are you today',
+    timestamp: 1727412214643,
+    isSelf: true,
+  },
+  {
+    message: "I'm doing well, thank you for asking!",
+    name: 'Agent',
+    isSelf: false,
+    timestamp: 1727412217475,
+  },
+  {
+    message: 'How can I assist you today, Bobby?',
+    name: 'Agent',
+    isSelf: false,
+    timestamp: 1727412220094,
+  },
+];
 
 const serverUrl = 'wss://projectx-2ef20wul.livekit.cloud';
 const token =
@@ -34,36 +68,8 @@ function ChatPage() {
   const [messageText, setMessageText] = useState('');
   const [isEmojiOpen, setIsEmojiOpen] = useState(false);
 
-  const handleSendMessage = () => {
-    setIsEmojiOpen(false);
-
-    if (!messageText) return;
-
-    const newMessage = {
-      id: messages.length + 1,
-      sender: 'me',
-      type: 'text',
-      content: messageText,
-      time: new Date().toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit',
-      }),
-    };
-
-    setMessages([...messages, newMessage]);
-    setMessageText('');
-    setReplyingTo(null); // Clear reply after sending
-  };
-
   return (
     <LayoutContextProvider>
-      <LiveKitRoom
-        serverUrl={serverUrl}
-        token={token}
-        connectOptions={{ autoSubscribe: true }}
-      >
-        <ActiveRoom />
-      </LiveKitRoom>
       <div className="flex flex-col h-screen w-screen">
         {/* Chat Header */}
         <div className="flex items-center p-3 bg-white shadow-md">
@@ -87,87 +93,17 @@ function ChatPage() {
             </button>
           </div>
         </div>
-
-        {/* Chat Body */}
-        <div className="flex-grow flex flex-col w-full p-3 bg-gray-100 overflow-y-auto">
-          {messages.map((message) => (
-            <ChatBubble key={message.id} message={message} />
-          ))}
-        </div>
-
-        {/* Chat Input */}
-        <div className="flex flex-col w-screen p-3 items-center bg-white shadow-md">
-          <EmojiPicker
-            open={isEmojiOpen}
-            width={'100%'}
-            previewConfig={{ showPreview: false }}
-            onEmojiClick={(e) => setMessageText((prev) => prev + e.emoji)}
-            searchDisabled={true}
-          />
-          <div className="flex w-screen p-3 items-center">
-            <div className="flex w-full p-2 rounded-full bg-gray-100 outline-none">
-              <input
-                type="text"
-                placeholder="Message..."
-                className="bg-gray-100 outline-none w-full pd-l-2"
-                value={messageText}
-                onChange={(e) => setMessageText(e.target.value)}
-              />
-              <div className="right-buttons-container flex">
-                <button className="text-gray-500 mr-3">
-                  <SmileIcon onClick={() => setIsEmojiOpen(!isEmojiOpen)} />
-                </button>
-                <button className="text-xl text-gray-500 mr-3">
-                  <AttachmentIcon />
-                </button>
-                <button className="text-xl text-gray-500 mr-3">
-                  <CameraIcon />
-                </button>
-              </div>
-            </div>
-            <button
-              className="text-xl text-blue-500"
-              onClick={handleSendMessage}
-            >
-              <SendIcon />
-            </button>
-          </div>
-        </div>
+        <LiveKitRoom
+          serverUrl={serverUrl}
+          token={token}
+          connectOptions={{ autoSubscribe: true }}
+        >
+          <ActiveRoom />
+        </LiveKitRoom>
       </div>
     </LayoutContextProvider>
   );
 }
-
-const ChatBubble = ({ message }) => {
-  return (
-    <div className="flex flex-col w-full">
-      <div
-        className={`max-w-[70%] min-w-[150px] p-2 my-2  ${
-          message.sender === 'me'
-            ? 'bg-[#EB5017] text-[white] rounded-[16px] rounded-br-[0px] flex flex-col self-end'
-            : 'bg-white flex flex-col rounded-[16px] rounded-bl-[0px] self-start text-left'
-        }`}
-      >
-        {message.type === 'text' && <p>{message.content}</p>}
-        {message.type === 'image' && (
-          <img src={message.content} alt="Sent media" className="rounded-lg" />
-        )}
-        {message.type === 'audio' && (
-          <audio controls className="w-full">
-            <source src={message.content} type="audio/mpeg" />
-          </audio>
-        )}
-        <span
-          className={`text-xs  ${
-            message.sender === 'me' ? 'text-[white]-500' : 'text-gray-500'
-          } text-right`}
-        >
-          {message.time}
-        </span>
-      </div>
-    </div>
-  );
-};
 
 const ActiveRoom = () => {
   const voiceAssistant = useVoiceAssistant();
@@ -184,6 +120,32 @@ const ActiveRoom = () => {
   const [transcripts, setTranscripts] = useState(new Map());
   const [messages, setMessages] = useState([]);
   const { chatMessages, send: sendChat } = useChat();
+
+  console.log(messages);
+
+  // temp
+  const [isEmojiOpen, setIsEmojiOpen] = useState(false);
+  const [messageText, setMessageText] = useState('');
+  const [replyingTo, setReplyingTo] = useState(null);
+
+  const handleSendMessage = () => {
+    sendChat(messageText);
+    // setIsEmojiOpen(false);
+    // if (!messageText) return;
+    // const newMessage = {
+    //   id: messages.length + 1,
+    //   sender: 'me',
+    //   type: 'text',
+    //   content: messageText,
+    //   time: new Date().toLocaleTimeString([], {
+    //     hour: '2-digit',
+    //     minute: '2-digit',
+    //   }),
+    // };
+    // setMessages([...messages, newMessage]);
+    // setMessageText('');
+    // setReplyingTo(null); // Clear reply after sending
+  };
 
   useEffect(() => {
     agentMessages.segments.forEach((s) =>
@@ -239,6 +201,53 @@ const ActiveRoom = () => {
     agentMessages.segments,
     localMessages.segments,
   ]);
+
+  return (
+    <div className="relative flex flex-col h-full">
+      <div className="h-[calc(100vh-64px)] flex-grow flex flex-col w-full bg-gray-100 overflow-y-auto">
+        <div className="flex flex-col h-[calc(100%-88px)] overflow-auto p-3">
+          {messages.map((message) => (
+            <ChatBubble key={message.timestamp} message={message} />
+          ))}
+        </div>
+      </div>
+
+      <div className="absolute bottom-0 flex flex-col w-screen p-3 items-center bg-white shadow-md">
+        <EmojiPicker
+          open={isEmojiOpen}
+          width={'100%'}
+          previewConfig={{ showPreview: false }}
+          onEmojiClick={(e) => setMessageText((prev) => prev + e.emoji)}
+          searchDisabled={true}
+        />
+        <div className="flex w-screen p-3 items-center">
+          <div className="flex w-full p-2 rounded-full bg-gray-100 outline-none">
+            <input
+              type="text"
+              placeholder="Message..."
+              className="bg-gray-100 outline-none w-full pd-l-2"
+              value={messageText}
+              onChange={(e) => setMessageText(e.target.value)}
+            />
+            <div className="right-buttons-container flex">
+              <button className="text-gray-500 mr-3">
+                <SmileIcon onClick={() => setIsEmojiOpen(!isEmojiOpen)} />
+              </button>
+              <button className="text-xl text-gray-500 mr-3">
+                <AttachmentIcon />
+              </button>
+              <button className="text-xl text-gray-500 mr-3">
+                <CameraIcon />
+              </button>
+            </div>
+          </div>
+          <button className="text-xl text-blue-500" onClick={handleSendMessage}>
+            <SendIcon />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default ChatPage;
