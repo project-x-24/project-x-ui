@@ -5,9 +5,20 @@ import { VoiceAssistBg } from '../../assets';
 import { ChatBg } from '../../assets';
 import { RightIcon } from '../../assets';
 import BottomTab from "../../components/bottom-tab/BottomTab";
+import { useEffect, useState } from 'react';
+import { getTodoList } from './api';
 
 function HomePage({ name }) {
   const navigate = useNavigate();
+
+  const [notes, setNotes] = useState([]);
+  useEffect(() => {
+    (async () => {
+      const resp = await getTodoList();
+    
+      setNotes(resp?.items);
+    })();
+  }, []);
 
   const categories = [
     {
@@ -40,15 +51,9 @@ function HomePage({ name }) {
     },
   ];
 
-  const notes = [
-    { text: 'Buy groceries', time: '10:00 AM' },
-    { text: 'Finish project', time: '12:00 PM' },
-    { text: 'Workout at 6pm', time: '6:00 PM' },
-    { text: 'Budget planning', time: '7:30 PM' },
-  ];
   return (
 			<>
-    <div className="min-h-screen p-6 w-screen bg-white">
+    <div className="h-[calc(100vh-78px)] overflow-auto p-6 w-screen bg-white">
       {/* Greeting */}
       <div className="text-[18px] leading-7 font-[500] mb-6">Hi {name} 👋</div>
 
@@ -109,7 +114,7 @@ function HomePage({ name }) {
           >
             <div className="flex justify-between items-center">
               <div className="flex flex-col">
-                <span className="text-[14px] mb-2">{note.text}</span>
+                <span className="text-[14px] mb-2">{note.event}</span>
               </div>
             </div>
 
@@ -118,7 +123,7 @@ function HomePage({ name }) {
               <div className="flex items-center">
                 <ClockIcon />
                 <span className="text-[14px] h-5 text-[#98A2B3] align-middle font-[400] ml-1">
-                  {note.time}
+                  {note.date}
                 </span>
               </div>
               <div className="flex items-center justify-end">
