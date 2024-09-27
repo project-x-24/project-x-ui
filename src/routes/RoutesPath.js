@@ -4,6 +4,7 @@ const routesPath = {
   SIGNUP: '/signup',
   LOGIN: '/login',
   HOME: '/home',
+  ABOUT : '/about',
 };
 
 export default routesPath;

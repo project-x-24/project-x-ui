@@ -5,7 +5,7 @@ import { styled } from "@mui/system";
 
 // Define the styled components
 const CustomTextAreaContainer = styled("div")({
-  width: "200px",
+  width: "100%",
   position: "relative",
   margin: "auto",
 });
@@ -26,7 +26,7 @@ const ClearButton = styled(IconButton)({
   right: "8px",
 });
 
-const CustomTextArea = ({ value, onChange, onClear }) => {
+const CustomTextArea = ({ value, onChange, onClear, IsClearButtonPresent = false }) => {
   const handleClearClick = () => {
     onClear();
   };
@@ -44,8 +44,8 @@ const CustomTextArea = ({ value, onChange, onClear }) => {
         color="secondary"
         aria-label="Clear Text"
       >
-        <ClearIcon />
-      </ClearButton>
+        {IsClearButtonPresent &&<ClearIcon />}
+      </ClearButton >
     </CustomTextAreaContainer>
   );
 };
