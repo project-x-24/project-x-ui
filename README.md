@@ -1,4 +1,4 @@
-# Akatsuki UI
+# Project-X UI
 
 ## Available Scripts
 
