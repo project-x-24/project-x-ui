@@ -9,6 +9,7 @@ import RoutesPath from './RoutesPath';
 import HomePage from '../containers/home/Home';
 import { Voice } from '../containers/voice/Voice';
 import { TestChat } from '../containers/test-chat/TestChat';
+import AboutPerson from '../containers/about-person/AboutPerson';
 
 const Layout = () => {
   return (
