@@ -1,16 +1,18 @@
-import { useEffect, useRef, useState } from "react";
-import PulseWrapper from "./PulseWrapper";
+import { useEffect, useRef, useState } from 'react';
+import PulseWrapper from './PulseWrapper';
 
-const AudioVisualizer = ({ children }) => {
+const AudioVisualizer = ({ children, isEnabled = true }) => {
   const audioRef = useRef(null);
+
+  if (!isEnabled) {
+    return children;
+  }
 
   console.log({ audioRef });
   return (
     <div className="App flex justify-center items-center h-screen">
       <PulseWrapper audioSource={audioRef.current}>
-        <div className="bg-white text-blue-500 p-4 rounded-full text-xl">
-          {children}
-        </div>
+        <div className="bg-white p-4 rounded-full text-xl">{children}</div>
       </PulseWrapper>
 
       {/* Audio element to play and capture sound */}

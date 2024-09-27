@@ -42,7 +42,7 @@ const PulseWrapper = ({ children, audioSource }) => {
     <div className="relative flex justify-center items-center">
       {/* Outer Pulse Circles, scaled based on audio */}
       <div
-        className="absolute rounded-full bg-blue-500 opacity-50 animate-pulse"
+        className="absolute rounded-full bg-[#EB5017] opacity-50 animate-pulse"
         style={{
           transform: `scale(${scale})`,
           width: "12rem",
@@ -50,7 +50,7 @@ const PulseWrapper = ({ children, audioSource }) => {
         }}
       ></div>
       <div
-        className="absolute rounded-full bg-blue-500 opacity-30 animate-pulse"
+        className="absolute rounded-full bg-[#EB5017] opacity-30 animate-pulse"
         style={{
           transform: `scale(${scale * 1.2})`,
           width: "16rem",
@@ -58,7 +58,7 @@ const PulseWrapper = ({ children, audioSource }) => {
         }}
       ></div>
       <div
-        className="absolute rounded-full bg-blue-500 opacity-20 animate-pulse"
+        className="absolute rounded-full bg-[#EB5017] opacity-20 animate-pulse"
         style={{
           transform: `scale(${scale * 1.4})`,
           width: "20rem",

@@ -36,6 +36,7 @@ import search from '../../assets/images/search.png';
 import dots from '../../assets/images/dots.png';
 
 import { AI_AGENT_LIST } from '../../constants/common';
+import { VoiceOverlay } from './components/voice-overlay';
 
 const BLAH = [
   {
@@ -75,13 +76,14 @@ const BLAH = [
 // const token =
 //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGl0eSI6IiIsIm5hbWUiOiJteSBuYW1lIiwidmlkZW8iOnsicm9vbUNyZWF0ZSI6ZmFsc2UsInJvb21MaXN0IjpmYWxzZSwicm9vbVJlY29yZCI6ZmFsc2UsInJvb21BZG1pbiI6ZmFsc2UsInJvb21Kb2luIjp0cnVlLCJyb29tIjoibXktcm9vbSIsImNhblB1Ymxpc2giOnRydWUsImNhblN1YnNjcmliZSI6dHJ1ZSwiY2FuUHVibGlzaERhdGEiOnRydWUsImNhblB1Ymxpc2hTb3VyY2VzIjpbXSwiY2FuVXBkYXRlT3duTWV0YWRhdGEiOmZhbHNlLCJpbmdyZXNzQWRtaW4iOmZhbHNlLCJoaWRkZW4iOmZhbHNlLCJyZWNvcmRlciI6ZmFsc2UsImFnZW50IjpmYWxzZX0sInNpcCI6eyJhZG1pbiI6ZmFsc2UsImNhbGwiOmZhbHNlfSwiYXR0cmlidXRlcyI6e30sIm1ldGFkYXRhIjoiIiwic2hhMjU2IjoiIiwic3ViIjoiaWRlbnRpdHkiLCJpc3MiOiJBUElMYURYRlo2amNmZ2QiLCJuYmYiOjE3Mjc0MzUxOTksImV4cCI6MTcyNzQ1Njc5OX0.z4F_IFABGISYZOeh0bcy7ilkIlIT2CltJilaBJwAI50';
 
+// configure with route
+const isVoiceAgent = false;
+
 function ChatPage() {
-  const [replyingTo, setReplyingTo] = useState(null);
-  const [messageText, setMessageText] = useState('');
-  const [messages, setMessages] = useState(dummyData);
   const [isEmojiOpen, setIsEmojiOpen] = useState(false);
 
-  const [isVoice, setIsVoice] = useState(false);
+  const [isVoice, setIsVoice] = useState(isVoiceAgent);
+
   const [showPersonaDropdown, setShowPersonaDropdown] = useState(false);
   const [activePersona, setActivePersona] = useState(AI_AGENT_LIST[0]);
 
@@ -264,6 +266,21 @@ const ActiveRoom = ({ ActivePersona, isVoice, setIsVoice }) => {
   return (
     <>
       <RoomAudioRenderer muted={!isVoice} />
+      {isVoiceAgent && (
+        <VoiceOverlay
+          onClick={() => {
+            setIsVoice(true);
+            localParticipant?.localParticipant?.setMicrophoneEnabled(
+              !isMicrophoneEnabled
+            );
+          }}
+          onClose={() => {
+            setIsVoice(false);
+            localParticipant?.localParticipant?.setMicrophoneEnabled(false);
+            // re route to home page
+          }}
+        />
+      )}
       {isVoice && (
         <main
           className="w-screen h-screen fixed inset-0 z-10"
