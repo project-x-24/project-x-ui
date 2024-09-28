@@ -51,7 +51,7 @@ function HomePage({ name }) {
       name: "Memory Games",
       bgStyle: "bg-gradient-to-r from-[#7D88E7] to-[#8C96F0A3]",
       icon: <MemoryBg />,
-      route: "/game",
+      route: "/chat/5",
       disabled: false,
     },
     {
