@@ -4,7 +4,7 @@ import { API_ENDPOINT } from '../constants/common';
 export const apiCall = async (payload) => {
   const { url } = payload;
 
-  const API_URL = `${'http://150.230.238.192:3000/api/'}${url}`;
+  const API_URL = `${'https://150.230.238.192/api/'}${url}`;
 
   const apiParams = {
     ...payload,
