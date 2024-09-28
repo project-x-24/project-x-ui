@@ -89,7 +89,7 @@ const AddPerson = () => {
       <p className="w-full text-base pt-9 flex justify-start">
         Who would you like to chat with?
       </p>
-      <div className="flex w-full gap-6 flex-wrap">
+      <div className="grid grid-cols-2 w-full gap-4 ">
         {filteredAgentList.map((item, index) => (
           <button
             key={item.persona + index}
@@ -98,7 +98,7 @@ const AddPerson = () => {
           >
             <img
               src={item.imageSrc}
-              className="rounded-xl w-[170px] h-[170px] object-cover mt-[26px]"
+              className="rounded-xl w-full aspect-square object-cover mt-[26px]"
             />
             <p className="font-bold">{item.persona}</p>
             <p className="font-bold text-[#98A2B3]">{item.relation}</p>
