@@ -3,6 +3,9 @@ import Me from "../assets/images/me.png";
 import Gamebot from "../assets/images/gamebot.png";
 import Therapist from "../assets/images/therapist.png";
 import Friend from "../assets/images/friend.png";
+import kurian from "../assets/images/kurian.png";
+import hari from "../assets/images/hari.png";
+import shruthi from '../assets/images/shruthi.png';
 
 
 const AI_AGENT_LIST = [
@@ -12,7 +15,7 @@ const AI_AGENT_LIST = [
     persona: 'Kurian',
     relation: 'Myself',
     serverUrl: 'wss://demo-app-llkt0pq2.livekit.cloud',
-    imageSrc: Me,
+    imageSrc: kurian,
     token:
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGl0eSI6IiIsIm5hbWUiOiJteSBuYW1lIiwidmlkZW8iOnsicm9vbUNyZWF0ZSI6ZmFsc2UsInJvb21MaXN0IjpmYWxzZSwicm9vbVJlY29yZCI6ZmFsc2UsInJvb21BZG1pbiI6ZmFsc2UsInJvb21Kb2luIjp0cnVlLCJyb29tIjoiYXNqLXJvb20iLCJjYW5QdWJsaXNoIjp0cnVlLCJjYW5TdWJzY3JpYmUiOnRydWUsImNhblB1Ymxpc2hEYXRhIjp0cnVlLCJjYW5QdWJsaXNoU291cmNlcyI6W10sImNhblVwZGF0ZU93bk1ldGFkYXRhIjpmYWxzZSwiaW5ncmVzc0FkbWluIjpmYWxzZSwiaGlkZGVuIjpmYWxzZSwicmVjb3JkZXIiOmZhbHNlLCJhZ2VudCI6ZmFsc2V9LCJzaXAiOnsiYWRtaW4iOmZhbHNlLCJjYWxsIjpmYWxzZX0sImF0dHJpYnV0ZXMiOnt9LCJtZXRhZGF0YSI6IiIsInNoYTI1NiI6IiIsInN1YiI6ImlkZW50aXR5IiwiaXNzIjoiQVBJaXRtQzU4elJFQ3o5IiwibmJmIjoxNzI3NDg0MTE0LCJleHAiOjE3Mjc1MDU3MTR9.ll2hN4k926oObH6HvfaUDMaw-A2sZH7M7ys4ec84jzo',
   },
@@ -21,7 +24,7 @@ const AI_AGENT_LIST = [
     persona: 'Hari',
     relation: 'Best friend',
     serverUrl: 'wss://projectxbestfriend-jqitcff8.livekit.cloud',
-    imageSrc: Friend,
+    imageSrc: hari,
      token:
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGl0eSI6IiIsIm5hbWUiOiJteSBuYW1lIiwidmlkZW8iOnsicm9vbUNyZWF0ZSI6ZmFsc2UsInJvb21MaXN0IjpmYWxzZSwicm9vbVJlY29yZCI6ZmFsc2UsInJvb21BZG1pbiI6ZmFsc2UsInJvb21Kb2luIjp0cnVlLCJyb29tIjoiYXNqLXJvb20iLCJjYW5QdWJsaXNoIjp0cnVlLCJjYW5TdWJzY3JpYmUiOnRydWUsImNhblB1Ymxpc2hEYXRhIjp0cnVlLCJjYW5QdWJsaXNoU291cmNlcyI6W10sImNhblVwZGF0ZU93bk1ldGFkYXRhIjpmYWxzZSwiaW5ncmVzc0FkbWluIjpmYWxzZSwiaGlkZGVuIjpmYWxzZSwicmVjb3JkZXIiOmZhbHNlLCJhZ2VudCI6ZmFsc2V9LCJzaXAiOnsiYWRtaW4iOmZhbHNlLCJjYWxsIjpmYWxzZX0sImF0dHJpYnV0ZXMiOnt9LCJtZXRhZGF0YSI6IiIsInNoYTI1NiI6IiIsInN1YiI6ImlkZW50aXR5IiwiaXNzIjoiQVBJcFNUYTRZcEprRmRVIiwibmJmIjoxNzI3NDg0MTE0LCJleHAiOjE3Mjc1MDU3MTR9.OrvvYRxn5v8jY3btvO6tRcX0BcyCq3fFLNsr9pbkgDw',
   },
@@ -30,7 +33,7 @@ const AI_AGENT_LIST = [
     persona: 'Shruti',
     relation: 'Therapist',
     serverUrl: 'wss://projectxbestfriend-jqitcff8.livekit.cloud',
-    imageSrc: Therapist,
+    imageSrc: shruthi,
      token:
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGl0eSI6IiIsIm5hbWUiOiJteSBuYW1lIiwidmlkZW8iOnsicm9vbUNyZWF0ZSI6ZmFsc2UsInJvb21MaXN0IjpmYWxzZSwicm9vbVJlY29yZCI6ZmFsc2UsInJvb21BZG1pbiI6ZmFsc2UsInJvb21Kb2luIjp0cnVlLCJyb29tIjoiYXNqLXJvb20iLCJjYW5QdWJsaXNoIjp0cnVlLCJjYW5TdWJzY3JpYmUiOnRydWUsImNhblB1Ymxpc2hEYXRhIjp0cnVlLCJjYW5QdWJsaXNoU291cmNlcyI6W10sImNhblVwZGF0ZU93bk1ldGFkYXRhIjpmYWxzZSwiaW5ncmVzc0FkbWluIjpmYWxzZSwiaGlkZGVuIjpmYWxzZSwicmVjb3JkZXIiOmZhbHNlLCJhZ2VudCI6ZmFsc2V9LCJzaXAiOnsiYWRtaW4iOmZhbHNlLCJjYWxsIjpmYWxzZX0sImF0dHJpYnV0ZXMiOnt9LCJtZXRhZGF0YSI6IiIsInNoYTI1NiI6IiIsInN1YiI6ImlkZW50aXR5IiwiaXNzIjoiQVBJcFNUYTRZcEprRmRVIiwibmJmIjoxNzI3NDg0MTE0LCJleHAiOjE3Mjc1MDU3MTR9.OrvvYRxn5v8jY3btvO6tRcX0BcyCq3fFLNsr9pbkgDw',
   },
