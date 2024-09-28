@@ -66,7 +66,7 @@ const AddPerson = () => {
   };
 
   const filteredAgentList = AI_AGENT_LIST.filter(
-    (item) => item.persona !== 'Game' || item.persona !== 'Assistant'
+    (item) => item.persona !== 'Game' && item.persona !== 'Assistant'
   );
 
   return (
