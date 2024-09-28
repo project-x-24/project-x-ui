@@ -7,12 +7,13 @@ import outer from '../../../assets/images/outer.png';
 import close from '../../../assets/images/close.png';
 import AudioVisualizer from '../../../components/audio-visualizer/AudioVisualizer';
 
-export const VoiceOverlay = ({ onClick, onClose }) => {
+export const VoiceOverlay = ({ onClick, onClose, status }) => {
   const [isRecording, setIsRecording] = useState(false);
 
   return (
     <div className="fixed top-0 h-screen w-screen bg-white z-20 flex justify-center items-center">
       <div className="flex flex-col items-center gap-[20px]">
+        <div className="absolute top-[25px] text-[#EB5017] bold capitalize">{status}</div>
         <AudioVisualizer isEnabled={isRecording}>
           <div className="relative">
             <img

@@ -272,6 +272,7 @@ const ActiveRoom = ({ ActivePersona, isVoice, setIsVoice, isVoiceAgent }) => {
               !isMicrophoneEnabled
             );
           }}
+          status={voiceAssistant.state}
           onClose={() => {
             setIsVoice(false);
             localParticipant?.localParticipant?.setMicrophoneEnabled(false);
