@@ -25,6 +25,7 @@ import { getTodoList } from "./api";
 
 import MemoryLaneVideo from "../../assets/videos/memoryLane.mp4";
 import ReactPlayer from "react-player";
+import Header from "../../components/header/Header";
 
 function HomePage({ name }) {
   const navigate = useNavigate();
@@ -101,11 +102,13 @@ function HomePage({ name }) {
   return (
     <>
       {!showVideo ? (
-        <>
+        <div className="flex flex-col">
+		
+		<Header/>
           <div className="h-[calc(100vh-78px)] overflow-auto p-6 w-screen bg-white">
             {/* Greeting */}
             <div className="text-[18px] leading-7 font-[500] mb-6">
-              Hi {name} 👋
+              Hi {name},
             </div>
 
             {/* Emoji & Question */}
@@ -203,7 +206,7 @@ function HomePage({ name }) {
             </div>
           </div>
           <BottomTab activeTab={"home"} setShowVideo={setShowVideo} />
-        </>
+        </div>
       ) : (
         <ReactPlayer
           muted

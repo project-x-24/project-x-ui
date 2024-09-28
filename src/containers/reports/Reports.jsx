@@ -18,6 +18,7 @@ import Stats from "../../assets/images/overallStatistics.png";
 import BottomTab from "../../components/bottom-tab/BottomTab";
 import ReactPlayer from "react-player";
 import MemoryLaneVideo from "../../assets/videos/memoryLane.mp4"
+import Header from "../../components/header/Header";
 
 const Reports = () => {
   const [activeEmoji, setActiveEmoji] = useState("happy");
@@ -50,7 +51,8 @@ const Reports = () => {
 
   return (
     
-   !showVideo ? (<>
+   !showVideo ? (<div className="flex flex-col">
+   <Header/>
     <div className="h-[calc(100vh-78px)] overflow-auto p-6 w-screen bg-white">
       {/* Greeting */}
       <div className="text-[18px] leading-7 font-[500] mb-6">Hi there 👋</div>
@@ -94,7 +96,7 @@ const Reports = () => {
       </div>
     </div>
     <BottomTab activeTab={"reports"} setShowVideo={setShowVideo}/>
-    </>) : (
+    </div>) : (
         <ReactPlayer
           muted
           playing

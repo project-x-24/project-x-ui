@@ -18,7 +18,7 @@ import CameraAssist from "../containers/camera-assist/CameraAssist";
 
 const Layout = () => {
   return (
-    <div className="flex justify-center bg-slate-300 h-[100vh] items-start">
+    <div className="flex justify-center h-[100vh] items-start">
       <Router>
         <Routes>
           <Route

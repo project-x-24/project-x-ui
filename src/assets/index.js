@@ -41,3 +41,5 @@ export { ReactComponent as SadInactive } from "../assets/icons/sad-inactive.svg"
 export { ReactComponent as HomeIcon } from "../assets/icons/home.svg";
 export { ReactComponent as ReportsFilter } from "../assets/icons/reportsFilter.svg";
 export { ReactComponent as SettingsIcon } from "../assets/icons/settingsIcon.svg";
+export { ReactComponent as CompanyLogo } from "../assets/icons/Reverb.svg";
+
