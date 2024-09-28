@@ -12,7 +12,8 @@ const routesPath = {
   PROFILE : '/profile/:id',
   TODO : '/todo',
   ADD_PERSON: "/add-person",
-  REPORTS: "/reports"
+  REPORTS: "/reports",
+  CAMERA_ASSIST: "/camera-assist",
 };
 
 export default routesPath;

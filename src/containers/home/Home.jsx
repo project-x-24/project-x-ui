@@ -23,7 +23,7 @@ import BottomTab from "../../components/bottom-tab/BottomTab";
 import { useEffect, useState } from "react";
 import { getTodoList } from "./api";
 
-import onboardingVideo from "../../assets/images/onboarding.mp4";
+import MemoryLaneVideo from "../../assets/videos/memoryLane.mp4";
 import ReactPlayer from "react-player";
 
 function HomePage({ name }) {
@@ -65,8 +65,8 @@ function HomePage({ name }) {
       name: "Face Assist",
       bgStyle: "bg-gradient-to-r from-[#498A5B] to-[#7ACB90]",
       icon: <FaceAssistBg />,
-      route: "/chat/6",
-      disabled: true,
+      route: "/camera-assist",
+      disabled: false,
     },
   ];
   const emotions = [
@@ -94,6 +94,10 @@ function HomePage({ name }) {
   ];
 
   const [activeEmoji, setActiveEmoji] = useState("happy");
+  const handleVideoEnd = () => {
+    setShowVideo(false);
+  };
+
   return (
     <>
       {!showVideo ? (
@@ -207,7 +211,8 @@ function HomePage({ name }) {
           playsinline
           width="100%"
           height="100%"
-          url={onboardingVideo}
+          url={MemoryLaneVideo}
+          onEnded={handleVideoEnd}
         />
       )}
     </>

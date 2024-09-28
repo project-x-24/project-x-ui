@@ -13,15 +13,18 @@ import AboutPerson from "../containers/about-person/AboutPerson";
 import ChatPage from "../containers/chat-ui/ChatPage";
 import AvatarProfile from "../containers/avatar-profile/AvatarProfile";
 import AddPerson from "../containers/add-person/AddPerson";
-import ToDoPage from '../containers/to-do/ToDoPage';
 import Reports from "../containers/reports/Reports";
+import CameraAssist from "../containers/camera-assist/CameraAssist";
 
 const Layout = () => {
   return (
     <div className="flex justify-center bg-slate-300 h-[100vh] items-start">
       <Router>
         <Routes>
-          <Route path={RoutesPath.HOME} element={<HomePage name={"Kurian"}/>} />
+          <Route
+            path={RoutesPath.HOME}
+            element={<HomePage name={"Kurian"} />}
+          />
           <Route path={RoutesPath.VOICE} element={<Voice />} />
           <Route path={RoutesPath.TEST} element={<TestChat />} />
           <Route
@@ -35,6 +38,7 @@ const Layout = () => {
           <Route path={RoutesPath.PROFILE} element={<AvatarProfile />} />
           <Route path={RoutesPath.GAME} element={<ChatPage />} />
           <Route path={RoutesPath.REPORTS} element={<Reports />} />
+          <Route path={RoutesPath.CAMERA_ASSIST} element={<CameraAssist />} />
         </Routes>
       </Router>
     </div>

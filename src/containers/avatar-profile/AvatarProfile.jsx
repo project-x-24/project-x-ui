@@ -9,7 +9,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { AI_AGENT_LIST } from "../../constants/common";
 import ReactPlayer from "react-player";
 
-import onboardingVideo from "../../assets/images/onboarding.mp4";
+import MemoryLaneVideo from "../../assets/videos/memoryLane.mp4";
 
 const AvatarProfile = () => {
   const params = useParams();
@@ -41,6 +41,10 @@ const AvatarProfile = () => {
     }
   });
 
+  const handleVideoEnd = () => {
+    setShowVideo(false);
+  };
+
   return (
     <div className="avatar-profile-container w-full h-screen items-center flex flex-col bg-white ">
       {!showVideo ? (
@@ -68,10 +72,10 @@ const AvatarProfile = () => {
             </div>
           </div>
           <button
-            className="flex justify-center items-center bg-[#EB5017] rounded-lg text-white m-6 px-4 py-2 w-fit"
+            className="flex justify-center items-center bg-[#EB5017] rounded-lg font-semibold text-white m-6 px-4 py-2 w-fit"
             onClick={() => setShowVideo(true)}
           >
-            Unlock Core Memory
+            Relive a Core Memory
           </button>
           <div className="lower-part-media-container w-full px-[24px]">
             <SimpleHeader title={"Media & Files"} margin={"500"} />
@@ -100,7 +104,8 @@ const AvatarProfile = () => {
           playsinline
           width="100%"
           height="100%"
-          url={onboardingVideo}
+          url={MemoryLaneVideo}
+          onEnded={handleVideoEnd}
         />
       )}
     </div>

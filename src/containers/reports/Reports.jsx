@@ -17,7 +17,7 @@ import DailyActivity from "../../assets/images/dailyActivity.png";
 import Stats from "../../assets/images/overallStatistics.png";
 import BottomTab from "../../components/bottom-tab/BottomTab";
 import ReactPlayer from "react-player";
-import onboardingVideo from "../../assets/images/onboarding.mp4"
+import MemoryLaneVideo from "../../assets/videos/memoryLane.mp4"
 
 const Reports = () => {
   const [activeEmoji, setActiveEmoji] = useState("happy");
@@ -101,7 +101,7 @@ const Reports = () => {
           playsinline
           width="100%"
           height="100%"
-          url={onboardingVideo}
+          url={MemoryLaneVideo}
 
         />
       )
