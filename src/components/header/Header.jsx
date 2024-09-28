@@ -3,10 +3,10 @@ import { MenuIcon } from '../../assets';
 
 const Header = () => {
   return (
-    <header className="flex justify-between pt-4 h-[50px] items-center p-4 bg-white ">
+    <header className="flex justify-between pt-4  items-center p-4 bg-white ">
       {/* Company Logo and Name */}
       <div className="flex items-center">
-        <CompanyLogo className="h-[50px] w-[100px] mr-3" />
+        <CompanyLogo className="h-[50px] w-[150px] mr-3" />
       </div>
 
       {/* Menu Icon */}
