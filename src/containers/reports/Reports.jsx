@@ -15,6 +15,9 @@ import {
 
 import DailyActivity from "../../assets/images/dailyActivity.png";
 import Stats from "../../assets/images/overallStatistics.png";
+import BottomTab from "../../components/bottom-tab/BottomTab";
+import ReactPlayer from "react-player";
+import onboardingVideo from "../../assets/images/onboarding.mp4"
 
 const Reports = () => {
   const [activeEmoji, setActiveEmoji] = useState("happy");
@@ -43,8 +46,12 @@ const Reports = () => {
     },
   ];
 
+  const [showVideo, setShowVideo] = useState(false);
+
   return (
-    <div className="h-screen overflow-auto p-6 w-screen bg-white">
+    
+   !showVideo ? (<>
+    <div className="h-[calc(100vh-78px)] overflow-auto p-6 w-screen bg-white">
       {/* Greeting */}
       <div className="text-[18px] leading-7 font-[500] mb-6">Hi there 👋</div>
 
@@ -76,7 +83,7 @@ const Reports = () => {
       </div>
       <div className="flex flex-col">
         <div className="flex justify-between">
-          <p>Daily Report</p>
+          <p className="text-[16px] font-500">Daily Report</p>
           <ReportsFilter />
         </div>
         <img
@@ -86,6 +93,18 @@ const Reports = () => {
         <img src={Stats} className="rounded-xl w-full object-cover mt-[26px]" />
       </div>
     </div>
+    <BottomTab activeTab={"reports"} setShowVideo={setShowVideo}/>
+    </>) : (
+        <ReactPlayer
+          muted
+          playing
+          playsinline
+          width="100%"
+          height="100%"
+          url={onboardingVideo}
+
+        />
+      )
   );
 };
 
