@@ -5,6 +5,8 @@
 * {
   box-sizing: border-box;
   font-family: 'Poppins';
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent;
 }
 
 p {
