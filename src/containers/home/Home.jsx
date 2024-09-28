@@ -35,7 +35,7 @@ function HomePage({ name }) {
     (async () => {
       const resp = await getTodoList();
 
-      setNotes(resp?.items);
+      setNotes(resp?.items ?? []);
     })();
   }, []);
 
