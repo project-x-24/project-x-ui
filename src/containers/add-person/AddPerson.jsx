@@ -8,6 +8,8 @@ import AudioVisualizer from '../../components/audio-visualizer/AudioVisualizer';
 import { LeftArrowIcon } from '../../assets';
 import { useNavigate } from 'react-router-dom';
 import { AI_AGENT_LIST } from '../../constants/common';
+import ReactPlayer from 'react-player';
+import Flow from '../../assets/videos/add-flow.mov';
 
 const personList = [
   {
@@ -69,53 +71,77 @@ const AddPerson = () => {
     (item) => item.persona !== 'Game' && item.persona !== 'Assistant'
   );
 
+  const [isPlaying, setIsPlaying] = useState(false);
+
   return (
-    <div className="flex flex-col justify-start px-6 py-5 items-center w-full md:w-[410px] bg-white h-full gap-3">
-      <button
-        onClick={handleOnBackButtonClick}
-        className="flex justify-start w-full gap-6 items-center"
-      >
-        <div className="text-xl flex">
-          <LeftArrowIcon />
-        </div>
-        <p className="text-xl text-[#EB5017] font-bold">Back</p>
-      </button>
-      {/* <div className="flex justify-center w-full">
+    <>
+      {!isPlaying ? (
+        <div className="flex flex-col justify-start px-6 py-5 items-center w-full md:w-[410px] bg-white h-full gap-3">
+          <button
+            onClick={handleOnBackButtonClick}
+            className="flex justify-start w-full gap-6 items-center"
+          >
+            <div className="text-xl flex">
+              <LeftArrowIcon />
+            </div>
+            <p className="text-xl text-[#EB5017] font-bold">Back</p>
+          </button>
+          {/* <div className="flex justify-center w-full">
         <button className="border border-dashed border-[#EB5017] rounded-lg p-4 font-bold text-[#EB5017] w-full flex justify-center gap-2">
           <AddUserIcon />
           Add New
         </button>
       </div> */}
-      <p className="w-full text-base pt-9 flex justify-start">
-        Who would you like to chat with?
-      </p>
-      <div className="grid grid-cols-2 w-full gap-4 ">
-        {filteredAgentList.map((item, index) => (
-          <button
-            key={item.persona + index}
-            onClick={() => handleOnPersonSelect(item.id)}
-            className="flex flex-col items-center gap-2"
-          >
-            <img
-              src={item.imageSrc}
-              className="rounded-xl w-full aspect-square object-cover mt-[26px]"
-            />
-            <p className="font-bold">{item.persona}</p>
-            <p className="font-bold text-[#98A2B3]">{item.relation}</p>
-          </button>
-        ))}
-        <button className="flex justify-center items-center border border-dashed border-[#EB5017] rounded-xl w-[170px] h-[170px] mt-[26px]">
-          <AddUserIcon />
-          Add New
-        </button>
-      </div>
-      {/* <AudioVisualizer>
+          <p className="w-full text-base pt-9 flex justify-start">
+            Who would you like to chat with?
+          </p>
+          <div className="grid grid-cols-2 w-full gap-4 ">
+            {filteredAgentList.map((item, index) => (
+              <button
+                key={item.persona + index}
+                onClick={() => handleOnPersonSelect(item.id)}
+                className="flex flex-col items-center gap-2"
+              >
+                <img
+                  src={item.imageSrc}
+                  className="rounded-xl w-full aspect-square object-cover mt-[26px]"
+                />
+                <p className="font-bold">{item.persona}</p>
+                <p className="font-bold text-[#98A2B3]">{item.relation}</p>
+              </button>
+            ))}
+            <button
+              className="flex justify-center items-center border border-dashed border-[#EB5017] rounded-xl aspect-square mt-[26px]"
+              onClick={() => {
+                setIsPlaying(true);
+              }}
+            >
+              <AddUserIcon />
+              Add New
+            </button>
+          </div>
+          {/* <AudioVisualizer>
         <img
           src={grandpaDummy}
           className="rounded-full w-[150px] h-[150px] object-cover"
         />
       </AudioVisualizer> */}
-    </div>
+        </div>
+      ) : (
+        <ReactPlayer
+          muted
+          playing
+          playsinline
+          width="100%"
+          height="100%"
+          url={Flow}
+          onEnded={() => {
+            setIsPlaying(false);
+            navigate('/home');
+          }}
+        />
+      )}
+    </>
   );
 };
 
