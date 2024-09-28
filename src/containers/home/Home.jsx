@@ -7,8 +7,6 @@ import { RightIcon } from '../../assets';
 import BottomTab from "../../components/bottom-tab/BottomTab";
 import { useEffect, useState } from 'react';
 import { getTodoList } from './api';
-import { useState } from 'react';
-
 function HomePage({ name }) {
   const navigate = useNavigate();
 
