@@ -12,6 +12,7 @@ const routesPath = {
   PROFILE : '/profile/:id',
   TODO : '/todo',
   ADD_PERSON: "/add-person",
+  REPORTS: "/reports"
 };
 
 export default routesPath;

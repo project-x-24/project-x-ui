@@ -14,6 +14,7 @@ import ChatPage from "../containers/chat-ui/ChatPage";
 import AvatarProfile from "../containers/avatar-profile/AvatarProfile";
 import AddPerson from "../containers/add-person/AddPerson";
 import ToDoPage from '../containers/to-do/ToDoPage';
+import Reports from "../containers/reports/Reports";
 
 const Layout = () => {
   return (
@@ -33,6 +34,7 @@ const Layout = () => {
           <Route path={RoutesPath.CHAT} element={<ChatPage />} />
           <Route path={RoutesPath.PROFILE} element={<AvatarProfile />} />
           <Route path={RoutesPath.GAME} element={<ChatPage />} />
+          <Route path={RoutesPath.REPORTS} element={<Reports />} />
         </Routes>
       </Router>
     </div>
